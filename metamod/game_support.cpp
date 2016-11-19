@@ -140,7 +140,7 @@ mBOOL DLLINTERNAL setup_gamedll(gamedll_t *gamedll) {
 	if(valid_gamedir_file(OLD_GAMEDLL_TXT))
 		META_WARNING("File '%s' is no longer supported; instead, specify override gamedll in %s or with '+localinfo mm_gamedll <dllfile>'", OLD_GAMEDLL_TXT, CONFIG_INI);
 	// First, look for a known game, based on gamedir.
-	if((known=lookup_game(gamedll->name))) {
+	if((known=lookup_game(gamedll->name)) != nullptr ) {
 #ifdef _WIN32
 		knownfn=known->win_dll;
 #elif defined(linux)
@@ -239,7 +239,7 @@ mBOOL DLLINTERNAL setup_gamedll(gamedll_t *gamedll) {
 		
 	// Then, autodetect gamedlls in "gamedir/dlls/"
 	// autodetect_gamedll returns 0 if knownfn exists and is valid gamedll.
-	if(Config->autodetect && (autofn=autodetect_gamedll(gamedll, knownfn))) {
+	if(Config->autodetect && (autofn=autodetect_gamedll(gamedll, knownfn)) != nullptr ) {
 		// If knownfn is set and autodetect_gamedll returns non-null
 		// then knownfn doesn't exists and we should use autodetected
 		// dll instead.

@@ -295,7 +295,7 @@ static int mutil_LoadMetaPlugin(plid_t plid, const char *fname, PLUG_LOADTIME no
 	}
 
 	meta_errno = ME_NOERROR;
-	if(!(pl_loaded=Plugins->plugin_addload(plid, fname, now))) {
+	if((pl_loaded=Plugins->plugin_addload(plid, fname, now)) == nullptr) {
 		if(plugin_handle)
 			*plugin_handle = NULL;
 		return(meta_errno);
@@ -341,7 +341,7 @@ static int mutil_UnloadMetaPluginByHandle(plid_t plid, void *plugin_handle, PLUG
 		return(ME_ARGUMENT);
 	}
 
-	if(!(findp=Plugins->find((DLHANDLE)plugin_handle)))
+	if((findp=Plugins->find((DLHANDLE)plugin_handle)) == nullptr)
 		return(ME_NOTFOUND);
 	
 	meta_errno = ME_NOERROR;

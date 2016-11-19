@@ -69,7 +69,7 @@ const char * DLLINTERNAL autodetect_gamedll(const gamedll_t *gamedll, const char
 	}
 	
 	// Open directory
-	if(!(dir = opendir(dllpath))) {
+	if((dir = opendir(dllpath)) == nullptr) {
 		//whine & return
 		META_WARNING("GameDLL-Autodetection: Couldn't open directory '%s'.", dllpath);
 		return(0);

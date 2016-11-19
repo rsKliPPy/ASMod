@@ -226,7 +226,7 @@ MPlugin * DLLINTERNAL MPluginList::find_memloc(void *memptr) {
 	
 	if(!memptr)
 		RETURN_ERRNO(NULL, ME_ARGUMENT);
-	if(!(dlhandle=get_module_handle_of_memptr(memptr))) {
+	if((dlhandle=get_module_handle_of_memptr(memptr)) == nullptr) {
 		META_DEBUG(8, ("DLFNAME failed to find memloc %d", memptr));
 		RETURN_ERRNO(NULL, ME_NOTFOUND);
 	}
@@ -391,9 +391,9 @@ mBOOL DLLINTERNAL MPluginList::ini_startup() {
 	for(n=0, ln=1; !feof(fp) && fgets(line, sizeof(line), fp) && n < size; ln++) {
 		// Remove line terminations.
 		char *cp;
-		if((cp=strrchr(line, '\r')))
+		if((cp=strrchr(line, '\r')) != nullptr)
 			*cp='\0';
-		if((cp=strrchr(line, '\n')))
+		if((cp=strrchr(line, '\n')) != nullptr )
 			*cp='\0';
 		// Parse directly into next entry in array
 		if(!plist[n].ini_parseline(line)) {
@@ -459,9 +459,9 @@ mBOOL DLLINTERNAL MPluginList::ini_refresh() {
 	{
 		// Remove line terminations.
 		char *cp;
-		if((cp=strrchr(line, '\r')))
+		if((cp=strrchr(line, '\r')) != nullptr )
 			*cp='\0';
-		if((cp=strrchr(line, '\n')))
+		if((cp=strrchr(line, '\n')) != nullptr )
 			*cp='\0';
 		// Parse into a temp plugin
 		memset(&pl_temp, 0, sizeof(pl_temp));
@@ -473,7 +473,7 @@ mBOOL DLLINTERNAL MPluginList::ini_refresh() {
 		}
 		// Try to find plugin with this pathname in the current list of
 		// plugins.
-		if(!(pl_found=find(pl_temp.pathname))) {
+		if((pl_found=find(pl_temp.pathname)) == nullptr) {
 			// Check for a matching platform with higher platform specifics
 			// level.
 			if(NULL != (pl_found=find_match(&pl_temp))) {
@@ -495,7 +495,7 @@ mBOOL DLLINTERNAL MPluginList::ini_refresh() {
 				}
 			}
 			// new plugin; add to list
-			if((pl_added=add(&pl_temp))) {
+			if((pl_added=add(&pl_temp)) != nullptr ) {
 				// try to load this plugin at the next opportunity
 				pl_added->action=PA_LOAD;
 			}
@@ -561,7 +561,7 @@ MPlugin * DLLINTERNAL MPluginList::plugin_addload(plid_t plid, const char *fname
 	MPlugin *pl_found, *pl_added, *pl_loader;
 	
 	// Find loader plugin
-	if(!(pl_loader=find(plid))) {
+	if((pl_loader=find(plid)) == nullptr) {
 		// Couldn't find a matching file on disk
 		META_DEBUG(1, ("Couldn't find plugin that gave this loading request!"));
 		// meta_errno should be already set in resolve()
@@ -587,14 +587,14 @@ MPlugin * DLLINTERNAL MPluginList::plugin_addload(plid_t plid, const char *fname
 
 	// Try to find plugin with this pathname in the current list of
 	// plugins.
-	if((pl_found=find(pl_temp.pathname))) {
+	if((pl_found=find(pl_temp.pathname)) != nullptr ) {
 		// Already in list
 		META_DEBUG(1, ("Plugin '%s' already in current list; file=%s desc='%s'", 
 				pl_temp.file, pl_found->file, pl_found->desc));
 		RETURN_ERRNO(NULL, ME_ALREADY);
 	}
 	// new plugin; add to list
-	if(!(pl_added=add(&pl_temp))) {
+	if((pl_added=add(&pl_temp)) == nullptr) {
 		META_DEBUG(1, ("Couldn't add plugin '%s' to list; see log", pl_temp.desc));
 		// meta_errno should be already set in add()
 		return(NULL);
@@ -655,14 +655,14 @@ mBOOL DLLINTERNAL MPluginList::cmd_addload(const char *args) {
 
 	// Try to find plugin with this pathname in the current list of
 	// plugins.
-	if((pl_found=find(pl_temp.pathname))) {
+	if((pl_found=find(pl_temp.pathname)) != nullptr ) {
 		// Already in list
 		META_CONS("Plugin '%s' already in current list; file=%s desc='%s'", 
 				pl_temp.file, pl_found->file, pl_found->desc);
 		RETURN_ERRNO(mFALSE, ME_ALREADY);
 	}
 	// new plugin; add to list
-	if(!(pl_added=add(&pl_temp))) {
+	if((pl_added=add(&pl_temp)) == nullptr) {
 		META_CONS("Couldn't add plugin '%s' to list; see log", pl_temp.desc);
 		// meta_errno should be already set in add()
 		return(mFALSE);

@@ -325,7 +325,7 @@ char * DLLINTERNAL MPlugin::resolve_dirs(const char *path) {
 	if(stat(buf, &st) == 0 && S_ISREG(st.st_mode))
 		return(buf);
 	// try other file prefixes in this path
-	if((found=resolve_prefix(buf)))
+	if((found=resolve_prefix(buf)) != nullptr )
 		return(found);
 
 	safevoid_snprintf(buf, sizeof(buf), "%s/dlls/%s", GameDLL.gamedir, path);
@@ -333,7 +333,7 @@ char * DLLINTERNAL MPlugin::resolve_dirs(const char *path) {
 	if(stat(buf, &st) == 0 && S_ISREG(st.st_mode))
 		return(buf);
 	// try other file prefixes for this path
-	if((found=resolve_prefix(buf)))
+	if((found=resolve_prefix(buf)) != nullptr )
 		return(found);
 
 	return(NULL);
@@ -369,11 +369,11 @@ char * DLLINTERNAL MPlugin::resolve_prefix(const char *path) {
 	if(stat(buf, &st) == 0 && S_ISREG(st.st_mode))
 		return(buf);
 	// try other suffixes for this path
-	if((found=resolve_suffix(buf)))
+	if((found=resolve_suffix(buf)) != nullptr)
 		return(found);
 
 	// try other suffixes for the original path
-	if((found=resolve_suffix(path)))
+	if((found=resolve_suffix(path)) != nullptr )
 		return(found);
 
 	return(NULL);
@@ -612,7 +612,7 @@ mBOOL DLLINTERNAL MPlugin::load(PLUG_LOADTIME now) {
 	// GameInit, since we've passed that.
 	if(now != PT_STARTUP) {
 		FN_GAMEINIT pfn_gameinit=NULL;
-		if(tables.dllapi && (pfn_gameinit=tables.dllapi->pfnGameInit))
+		if(tables.dllapi && (pfn_gameinit=tables.dllapi->pfnGameInit) != nullptr)
 			pfn_gameinit();
 	}
 	// If loading during map, then I'd like to call plugin's
@@ -645,7 +645,7 @@ mBOOL DLLINTERNAL MPlugin::query(void) {
 	META_QUERY_FN pfn_query;
 
 	// open the plugin DLL
-	if(!(handle=DLOPEN(pathname))) {
+	if((handle=DLOPEN(pathname)) == nullptr) {
 		META_WARNING("dll: Failed query plugin '%s'; Couldn't open file '%s': %s",
 				desc, pathname, DLERROR());
 		RETURN_ERRNO(mFALSE, ME_DLOPEN);
@@ -693,7 +693,7 @@ mBOOL DLLINTERNAL MPlugin::query(void) {
 	}
 	
 	// pass on engine function table and globals to plugin
-	if(!(pfn_give_engfuncs = (GIVE_ENGINE_FUNCTIONS_FN) DLSYM(handle, "GiveFnptrsToDll"))) {
+	if((pfn_give_engfuncs = (GIVE_ENGINE_FUNCTIONS_FN) DLSYM(handle, "GiveFnptrsToDll")) == nullptr) {
 		// META_WARNING("dll: Couldn't find GiveFnptrsToDll() in plugin '%s': %s", desc, DLERROR());
 		META_WARNING("dll: Failed query plugin '%s'; Couldn't find GiveFnptrsToDll(): %s", desc, DLERROR());
 		// caller will dlclose()
@@ -796,6 +796,60 @@ mBOOL DLLINTERNAL MPlugin::query(void) {
 	return(mTRUE);
 }
 
+/**
+*	Gets a function table from a plugin.
+*	@param plugin Plugin that is being queried.
+*	@param pfnGetFuncs Function to call to get the table.
+*	@param pszGetFuncs Name of the function being queried.
+*	@param structField Pointer that will receive the interface table that this function retrieves.
+*	@param iVersPass Version to pass to the plugin function. May be an int or a pointer to an int depending on the function.
+*	@param iVersInt Version that the plugin exports.
+*	@param iVersWant Version that you are trying to retrieve.
+*	@param uiTableSize Size of the table interface. Used to create a sufficiently large table.
+*	@return Whether the interface was successfully retrieved.
+*	@tparam GETFN Function pointer type that should be retrieved from the game.
+*	@tparam TABLE_TYPE Type of the interface table to create.
+*	@tparam PASSTYPE Type of the version to pass into the function.
+*/
+template<typename GETFN, typename TABLE_TYPE, typename PASSTYPE>
+bool GetFuncTableFromPlugin( MPlugin& plugin, GETFN& pfnGetFuncs, const char* pszGetFuncs, TABLE_TYPE*& structField,
+							 const PASSTYPE iVersPass, const int& iVersInt, const int iVersWant, 
+							 const size_t uiTableSize = sizeof( TABLE_TYPE ) )
+{
+	if( pfnGetFuncs )
+	{
+		if( !structField )
+		{
+			structField = ( TABLE_TYPE* ) calloc( 1, uiTableSize );
+		}
+		else
+		{
+			memset( structField, 0, uiTableSize );
+		}
+		if( pfnGetFuncs( structField, iVersPass ) )
+		{
+			META_DEBUG( 3, ( "dll: Plugin '%s': Found %s", plugin.desc, pszGetFuncs ) );
+
+			return true;
+		}
+		else
+		{
+			META_WARNING( "dll: Failure calling %s in plugin '%s'", pszGetFuncs, plugin.desc );
+			if( iVersInt != iVersWant )
+				META_WARNING( "dll: Interface version didn't match; expected %d, found %d", iVersWant, iVersInt );
+		}
+	}
+	else
+	{
+		META_DEBUG( 5, ( "dll: Plugin '%s': No %s", plugin.desc, pszGetFuncs ) );
+		if( structField )
+			free( structField );
+		structField = NULL;
+	}
+
+	return false;
+}
+
 // Attach a plugin:
 //	- dlsym() and call:
 //	    Meta_Attach - get table of api tables, give meta_globals
@@ -846,7 +900,7 @@ mBOOL DLLINTERNAL MPlugin::attach(PLUG_LOADTIME now) {
 		else
 			memset(gamedll_funcs.newapi_table, 0, sizeof(NEW_DLL_FUNCTIONS));
 	}
-	if(!(pfn_attach = (META_ATTACH_FN) DLSYM(handle, "Meta_Attach"))) {
+	if((pfn_attach = (META_ATTACH_FN) DLSYM(handle, "Meta_Attach")) == nullptr) {
 		META_WARNING("dll: Failed attach plugin '%s': Couldn't find Meta_Attach(): %s", desc, DLERROR());
 		// caller will dlclose()
 		RETURN_ERRNO(mFALSE, ME_DLMISSING);
@@ -863,79 +917,52 @@ mBOOL DLLINTERNAL MPlugin::attach(PLUG_LOADTIME now) {
 	}
 	META_DEBUG(6, ("dll: Plugin '%s': Called Meta_Attach() successfully", desc));
 
-	// Rather than duplicate code, we use another ugly macro.  Again,
-	// a function isn't an option since we have varying types.
-#define GET_FUNC_TABLE_FROM_PLUGIN(pfnGetFuncs, STR_GetFuncs, struct_field, API_TYPE, TABLE_TYPE, TABLE_SIZE, vers_pass, vers_int, vers_want) \
-	if(meta_table.pfnGetFuncs) { \
-		if(!struct_field) { \
-			struct_field = (TABLE_TYPE*)calloc(1, TABLE_SIZE); \
-		} else { \
-			memset(struct_field, 0, TABLE_SIZE); \
-		} \
-		if(meta_table.pfnGetFuncs(struct_field, vers_pass)) { \
-			META_DEBUG(3, ("dll: Plugin '%s': Found %s", desc, STR_GetFuncs)); \
-		} \
-		else { \
-			META_WARNING("dll: Failure calling %s in plugin '%s'", STR_GetFuncs, desc); \
-			if(vers_int != vers_want) \
-				META_WARNING("dll: Interface version didn't match; expected %d, found %d", vers_want, vers_int); \
-		} \
-	} \
-	else { \
-		META_DEBUG(5, ("dll: Plugin '%s': No %s", desc, STR_GetFuncs)); \
-		if(struct_field) \
-			free(struct_field); \
-		struct_field=NULL; \
-	}
-
 	// Look for API-NEW interface in plugin.  We do this before API2/API, because
 	// that's what the engine appears to do..
 	iface_vers=NEW_DLL_FUNCTIONS_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetNewDLLFunctions, 
-			"GetNewDLLFunctions", tables.newapi, 
-			NEW_DLL_FUNCTIONS_FN, NEW_DLL_FUNCTIONS, sizeof(NEW_DLL_FUNCTIONS),
-			&iface_vers, iface_vers, NEW_DLL_FUNCTIONS_VERSION);
+
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetNewDLLFunctions, 
+							"GetNewDLLFunctions", tables.newapi,
+							&iface_vers, iface_vers, NEW_DLL_FUNCTIONS_VERSION );
+
 	iface_vers=NEW_DLL_FUNCTIONS_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetNewDLLFunctions_Post, 
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetNewDLLFunctions_Post,
 			"GetNewDLLFunctions_Post", post_tables.newapi, 
-			NEW_DLL_FUNCTIONS_FN, NEW_DLL_FUNCTIONS, sizeof(NEW_DLL_FUNCTIONS),
-			&iface_vers, iface_vers, NEW_DLL_FUNCTIONS_VERSION);
+			&iface_vers, iface_vers, NEW_DLL_FUNCTIONS_VERSION );
 
 	// Look for API2 interface in plugin; preferred over API-1.
 	iface_vers=INTERFACE_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEntityAPI2, 
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetEntityAPI2,
 			"GetEntityAPI2", tables.dllapi, 
-			APIFUNCTION2, DLL_FUNCTIONS, sizeof(DLL_FUNCTIONS),
-			&iface_vers, iface_vers, INTERFACE_VERSION);
+			&iface_vers, iface_vers, INTERFACE_VERSION );
+
 	iface_vers=INTERFACE_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEntityAPI2_Post, 
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetEntityAPI2_Post,
 			"GetEntityAPI2_Post", post_tables.dllapi, 
-			APIFUNCTION2, DLL_FUNCTIONS, sizeof(DLL_FUNCTIONS),
-			&iface_vers, iface_vers, INTERFACE_VERSION);
+			&iface_vers, iface_vers, INTERFACE_VERSION );
 
 	// Look for old-style API in plugin, if API2 interface wasn't found.
 	if(!tables.dllapi && !post_tables.dllapi) {
-		GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEntityAPI, 
+		GetFuncTableFromPlugin( *this, meta_table.pfnGetEntityAPI,
 				"GetEntityAPI", tables.dllapi, 
-				APIFUNCTION, DLL_FUNCTIONS, sizeof(DLL_FUNCTIONS),
-				INTERFACE_VERSION, INTERFACE_VERSION, INTERFACE_VERSION);
-		GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEntityAPI_Post, 
+				INTERFACE_VERSION, INTERFACE_VERSION, INTERFACE_VERSION );
+
+		GetFuncTableFromPlugin( *this, meta_table.pfnGetEntityAPI_Post,
 				"GetEntityAPI_Post", post_tables.dllapi, 
-				APIFUNCTION, DLL_FUNCTIONS, sizeof(DLL_FUNCTIONS),
-				INTERFACE_VERSION, INTERFACE_VERSION, INTERFACE_VERSION);
+				INTERFACE_VERSION, INTERFACE_VERSION, INTERFACE_VERSION );
 	}
 
 	// Look for Engine interface.
 	iface_vers=ENGINE_INTERFACE_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEngineFunctions, 
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetEngineFunctions,
 			"GetEngineFunctions", tables.engine, 
-			GET_ENGINE_FUNCTIONS_FN, enginefuncs_t, (sizeof(enginefuncs_t) - sizeof(((enginefuncs_t*)0)->extra_functions)),
-			&iface_vers, iface_vers, ENGINE_INTERFACE_VERSION);
+			&iface_vers, iface_vers, ENGINE_INTERFACE_VERSION, 
+			( sizeof( enginefuncs_t ) - sizeof( ( ( enginefuncs_t* ) 0 )->extra_functions ) ) );
 	iface_vers=ENGINE_INTERFACE_VERSION;
-	GET_FUNC_TABLE_FROM_PLUGIN(pfnGetEngineFunctions_Post, 
+	GetFuncTableFromPlugin( *this, meta_table.pfnGetEngineFunctions_Post,
 			"GetEngineFunctions_Post", post_tables.engine, 
-			GET_ENGINE_FUNCTIONS_FN, enginefuncs_t, (sizeof(enginefuncs_t) - sizeof(((enginefuncs_t*)0)->extra_functions)),
-			&iface_vers, iface_vers, ENGINE_INTERFACE_VERSION);
+			&iface_vers, iface_vers, ENGINE_INTERFACE_VERSION,
+			( sizeof( enginefuncs_t ) - sizeof( ( ( enginefuncs_t* ) 0 )->extra_functions ) ) );
 
 	if(!tables.dllapi && !post_tables.dllapi
 		&& !tables.newapi && !post_tables.newapi
@@ -956,7 +983,7 @@ mBOOL DLLINTERNAL MPlugin::plugin_unload(plid_t plid, PLUG_LOADTIME now, PL_UNLO
 	MPlugin * pl_unloader;
 	
 	// try find unloader
-	if(!(pl_unloader=Plugins->find(plid))) {
+	if((pl_unloader=Plugins->find(plid)) == nullptr) {
 		META_WARNING("dll: Not unloading plugin '%s'; plugin that requested unload is not found.", desc);
 		RETURN_ERRNO(mFALSE, ME_BADREQ);
 	} 
@@ -1111,7 +1138,7 @@ mBOOL DLLINTERNAL MPlugin::detach(PLUG_LOADTIME now, PL_UNLOAD_REASON reason) {
 	if(!handle)
 		return(mTRUE);
 
-	if(!(pfn_detach = (META_DETACH_FN) DLSYM(handle, "Meta_Detach"))) {
+	if((pfn_detach = (META_DETACH_FN) DLSYM(handle, "Meta_Detach")) == nullptr) {
 		META_WARNING("dll: Error detach plugin '%s': Couldn't find Meta_Detach(): %s", desc, DLERROR());
 		// caller will dlclose()
 		RETURN_ERRNO(mFALSE, ME_DLMISSING);
@@ -1316,7 +1343,7 @@ void DLLINTERNAL MPlugin::show(void) {
 	META_CONS("%*s: %s", width, "ifvers", info ? info->ifvers : "(nil)");
 	// ctime() includes newline at EOL
 	tstr=ctime(&time_loaded);
-	if((cp=strchr(tstr, '\n')))
+	if((cp=strchr(tstr, '\n')) != nullptr)
 		*cp='\0';
 	META_CONS("%*s: %s", width, "last loaded", tstr);
 	// XXX show file time ?
