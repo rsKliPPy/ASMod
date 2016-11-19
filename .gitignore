@@ -1,2 +1,5 @@
 #temporary files
 *~
+
+#Bin directories for generating CMake projects
+bin*/*
