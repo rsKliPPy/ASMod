@@ -57,55 +57,57 @@ int DispatchSpawn_Post( edict_t *pent ) {
 	// 0==Success, -1==Failure ?
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void DispatchThink_Post( edict_t *pent ) {
+void DispatchThink_Post( edict_t *UNREFERENCED( pent ) ) {
 	DLL_TRACE(pfnThink, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchUse_Post( edict_t *pentUsed, edict_t *pentOther ) {
+void DispatchUse_Post( edict_t *UNREFERENCED( pentUsed ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnUse, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchTouch_Post( edict_t *pentTouched, edict_t *pentOther ) {
+void DispatchTouch_Post( edict_t *UNREFERENCED( pentTouched ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnTouch, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchBlocked_Post( edict_t *pentBlocked, edict_t *pentOther ) {
+void DispatchBlocked_Post( edict_t *UNREFERENCED( pentBlocked ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnBlocked, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchKeyValue_Post( edict_t *pentKeyvalue, KeyValueData *pkvd ) {
+void DispatchKeyValue_Post( edict_t *UNREFERENCED( pentKeyvalue ), KeyValueData *pkvd ) {
 	DLL_TRACE(pfnKeyValue, P_POST, ("classname=%s keyname=%s value=%s",
 			pkvd->szClassName, pkvd->szKeyName, pkvd->szValue));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchSave_Post( edict_t *pent, SAVERESTOREDATA *pSaveData ) {
+void DispatchSave_Post( edict_t *UNREFERENCED( pent ), SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnSave, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int DispatchRestore_Post( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity ) {
+int DispatchRestore_Post( edict_t *UNREFERENCED( pent ), SAVERESTOREDATA *UNREFERENCED( pSaveData ), int UNREFERENCED( globalEntity ) ) {
 	DLL_TRACE(pfnRestore, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	// 0==Success, -1==Failure ?
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void DispatchObjectCollsionBox_Post( edict_t *pent ) {
+void DispatchObjectCollsionBox_Post( edict_t *UNREFERENCED( pent ) ) {
 	DLL_TRACE(pfnSetAbsBox, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SaveWriteFields_Post( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount ) {
+void SaveWriteFields_Post( SAVERESTOREDATA *UNREFERENCED( pSaveData ), const char *UNREFERENCED( pname ), 
+						   void *UNREFERENCED( pBaseData ), TYPEDESCRIPTION *UNREFERENCED( pFields ), int UNREFERENCED( fieldCount ) ) {
 	DLL_TRACE(pfnSaveWriteFields, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SaveReadFields_Post( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount ) {
+void SaveReadFields_Post( SAVERESTOREDATA *UNREFERENCED( pSaveData ), const char *UNREFERENCED( pname ), 
+						  void *UNREFERENCED( pBaseData ), TYPEDESCRIPTION *UNREFERENCED( pFields ), int UNREFERENCED( fieldCount ) ) {
 	DLL_TRACE(pfnSaveReadFields, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
 // from SDK dlls/world.cpp:
-void SaveGlobalState_Post( SAVERESTOREDATA *pSaveData ) {
+void SaveGlobalState_Post( SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnSaveGlobalState, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void RestoreGlobalState_Post( SAVERESTOREDATA *pSaveData ) {
+void RestoreGlobalState_Post( SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnRestoreGlobalState, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -115,33 +117,33 @@ void ResetGlobalState_Post( void ) {
 }
 
 //! from SDK dlls/client.cpp:
-BOOL ClientConnect_Post( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ]  ) {
+BOOL ClientConnect_Post( edict_t *UNREFERENCED( pEntity ), const char *UNREFERENCED( pszName ), const char *UNREFERENCED( pszAddress ), char szRejectReason[ 128 ]  ) {
 	BOOL ret=META_RESULT_ORIG_RET(BOOL);
 	if(ret) DLL_TRACE(pfnClientConnect, P_POST, ("returning %d", ret));
 	else DLL_TRACE(pfnClientConnect, P_POST, ("returning %d, reason=%s", ret, szRejectReason));
 	RETURN_META_VALUE(MRES_IGNORED, TRUE);
 }
-void ClientDisconnect_Post( edict_t *pEntity ) {
+void ClientDisconnect_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnClientDisconnect, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ClientKill_Post( edict_t *pEntity ) {
+void ClientKill_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnClientKill, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ClientPutInServer_Post( edict_t *pEntity ) {
+void ClientPutInServer_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnClientPutInServer, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ClientCommand_Post( edict_t *pEntity ) {
+void ClientCommand_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnClientCommand, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ClientUserInfoChanged_Post( edict_t *pEntity, char *infobuffer ) {
+void ClientUserInfoChanged_Post( edict_t *UNREFERENCED( pEntity ), char *UNREFERENCED( infobuffer ) ) {
 	DLL_TRACE(pfnClientUserInfoChanged, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ServerActivate_Post( edict_t *pEdictList, int edictCount, int clientMax ) {
+void ServerActivate_Post( edict_t *UNREFERENCED( pEdictList ), int UNREFERENCED( edictCount ), int UNREFERENCED( clientMax ) ) {
 	DLL_TRACE(pfnServerActivate, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -149,11 +151,11 @@ void ServerDeactivate_Post( void ) {
 	DLL_TRACE(pfnServerDeactivate, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void PlayerPreThink_Post( edict_t *pEntity ) {
+void PlayerPreThink_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnPlayerPreThink, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void PlayerPostThink_Post( edict_t *pEntity ) {
+void PlayerPostThink_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnPlayerPostThink, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -173,55 +175,60 @@ const char *GetGameDescription_Post( void ) {
 	DLL_TRACE(pfnGetGameDescription, P_POST, ("returning %s", META_RESULT_ORIG_RET(char *)));
 	RETURN_META_VALUE(MRES_IGNORED, "");
 }
-void PlayerCustomization_Post( edict_t *pEntity, customization_t *pCust ) {
+void PlayerCustomization_Post( edict_t *UNREFERENCED( pEntity ), customization_t *UNREFERENCED( pCust ) ) {
 	DLL_TRACE(pfnPlayerCustomization, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorConnect_Post( edict_t *pEntity ) {
+void SpectatorConnect_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorConnect, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorDisconnect_Post( edict_t *pEntity ) {
+void SpectatorDisconnect_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorDisconnect, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorThink_Post( edict_t *pEntity ) {
+void SpectatorThink_Post( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorThink, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void Sys_Error_Post( const char *error_string ) {
+void Sys_Error_Post( const char *UNREFERENCED( error_string ) ) {
 	DLL_TRACE(pfnSys_Error, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
 // from SDK pm_shared/pm_shared.c:
-void PM_Move_Post( struct playermove_s *ppmove, int server ) {
+void PM_Move_Post( struct playermove_s *UNREFERENCED( ppmove ), int UNREFERENCED( server ) ) {
 	DLL_TRACE(pfnPM_Move, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void PM_Init_Post( struct playermove_s *ppmove ) {
+void PM_Init_Post( struct playermove_s *UNREFERENCED( ppmove ) ) {
 	DLL_TRACE(pfnPM_Init, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-char PM_FindTextureType_Post( char *name ) {
+char PM_FindTextureType_Post( char *UNREFERENCED( name ) ) {
 	DLL_TRACE(pfnPM_FindTextureType, P_POST, (""));
 	RETURN_META_VALUE(MRES_IGNORED, '\0');
 }
 
 // from SDK dlls/client.cpp:
-void SetupVisibility_Post( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas ) {
+void SetupVisibility_Post( edict_t *UNREFERENCED( pViewEntity ), edict_t *UNREFERENCED( pClient ), 
+						   unsigned char **UNREFERENCED( pvs ), unsigned char **UNREFERENCED( pas ) ) {
 	DLL_TRACE(pfnSetupVisibility, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void UpdateClientData_Post ( const struct edict_s *ent, int sendweapons, struct clientdata_s *cd ) {
+void UpdateClientData_Post ( const struct edict_s *UNREFERENCED( ent ), 
+							 int UNREFERENCED( sendweapons ), struct clientdata_s *UNREFERENCED( cd ) ) {
 	DLL_TRACE(pfnUpdateClientData, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int AddToFullPack_Post( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet ) {
+int AddToFullPack_Post( struct entity_state_s *UNREFERENCED( state ), int UNREFERENCED( e ), edict_t *UNREFERENCED( ent ), 
+						edict_t *UNREFERENCED( host ), int UNREFERENCED( hostflags ), int UNREFERENCED( player ), unsigned char *UNREFERENCED( pSet ) ) {
 	DLL_TRACE(pfnAddToFullPack, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void CreateBaseline_Post( int player, int eindex, struct entity_state_s *baseline, struct edict_s *entity, int playermodelindex, vec3_t player_mins, vec3_t player_maxs ) {
+void CreateBaseline_Post( int UNREFERENCED( player ), int UNREFERENCED( eindex ), struct entity_state_s *UNREFERENCED( baseline ), 
+						  struct edict_s *UNREFERENCED( entity ), int UNREFERENCED( playermodelindex ), 
+						  vec3_t UNREFERENCED( player_mins ), vec3_t UNREFERENCED( player_maxs ) ) {
 	DLL_TRACE(pfnCreateBaseline, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -229,23 +236,24 @@ void RegisterEncoders_Post( void ) {
 	DLL_TRACE(pfnRegisterEncoders, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int GetWeaponData_Post( struct edict_s *player, struct weapon_data_s *info ) {
+int GetWeaponData_Post( struct edict_s *UNREFERENCED( player ), struct weapon_data_s *UNREFERENCED( info ) ) {
 	DLL_TRACE(pfnGetWeaponData, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	RETURN_META_VALUE(MRES_IGNORED, 1);
 }
-void CmdStart_Post( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed ) {
+void CmdStart_Post( const edict_t *UNREFERENCED( player ), const struct usercmd_s *UNREFERENCED( cmd ), unsigned int UNREFERENCED( random_seed ) ) {
 	DLL_TRACE(pfnCmdStart, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void CmdEnd_Post ( const edict_t *player ) {
+void CmdEnd_Post ( const edict_t *UNREFERENCED( player ) ) {
 	DLL_TRACE(pfnCmdEnd, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int ConnectionlessPacket_Post( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size ) {
+int ConnectionlessPacket_Post( const struct netadr_s *UNREFERENCED( net_from ), const char *UNREFERENCED( args ), 
+							   char *UNREFERENCED( response_buffer ), int *UNREFERENCED( response_buffer_size ) ) {
 	DLL_TRACE(pfnConnectionlessPacket, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int GetHullBounds_Post( int hullnumber, float *mins, float *maxs ) {
+int GetHullBounds_Post( int UNREFERENCED( hullnumber ), float *UNREFERENCED( mins ), float *UNREFERENCED( maxs ) ) {
 	DLL_TRACE(pfnGetHullBounds, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -253,7 +261,7 @@ void CreateInstancedBaselines_Post ( void ) {
 	DLL_TRACE(pfnCreateInstancedBaselines, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int InconsistentFile_Post( const edict_t *player, const char *filename, char *disconnect_message ) {
+int InconsistentFile_Post( const edict_t *UNREFERENCED( player ), const char *UNREFERENCED( filename ), char *disconnect_message ) {
 	DLL_TRACE(pfnInconsistentFile, P_POST, ("returning %d, message=%s", META_RESULT_ORIG_RET(int), disconnect_message));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -264,7 +272,7 @@ int AllowLagCompensation_Post( void ) {
 
 
 // from SDK ?
-void OnFreeEntPrivateData_Post(edict_t *pEnt) {
+void OnFreeEntPrivateData_Post(edict_t *UNREFERENCED( pEnt )) {
 	NEWDLL_TRACE(pfnOnFreeEntPrivateData, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -272,13 +280,13 @@ void GameShutdown_Post(void) {
 	NEWDLL_TRACE(pfnGameShutdown, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int ShouldCollide_Post(edict_t *pentTouched, edict_t *pentOther) {
+int ShouldCollide_Post(edict_t *UNREFERENCED( pentTouched ), edict_t *UNREFERENCED( pentOther )) {
 	NEWDLL_TRACE(pfnShouldCollide, P_POST, ("returning %d", META_RESULT_ORIG_RET(int)));
 	RETURN_META_VALUE(MRES_IGNORED, 1);
 }
 
 // Added 2005-08-11 (no SDK update)
-void CvarValue_Post(const edict_t *pEdict, const char *szValue)
+void CvarValue_Post(const edict_t *UNREFERENCED( pEdict ), const char *UNREFERENCED( szValue ))
 {
 	NEWDLL_TRACE(pfnCvarValue, P_POST, (""));
 	RETURN_META(MRES_IGNORED);

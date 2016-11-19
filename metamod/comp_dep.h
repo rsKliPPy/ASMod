@@ -97,4 +97,9 @@
 	#define unlikely(x) __builtin_expect((long int)(x), false)
 #endif
 
+/**
+*	Macro used to define unreferenced function parameters.
+*/
+#define UNREFERENCED( x )
+
 #endif /*COMP_DEP_H*/

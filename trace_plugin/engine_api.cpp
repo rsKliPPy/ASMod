@@ -70,7 +70,7 @@ int ModelFrames(int modelIndex) {
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void SetSize(edict_t *e, const float *rgflMin, const float *rgflMax) {
+void SetSize(edict_t *UNREFERENCED( e ), const float *UNREFERENCED( rgflMin ), const float *UNREFERENCED( rgflMax )) {
 	ENGINE_TRACE(pfnSetSize, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -78,32 +78,33 @@ void ChangeLevel(char *s1, char *s2) {
 	ENGINE_TRACE(pfnChangeLevel, P_PRE, ("s1=%s, s2=%s", s1, s2));
 	RETURN_META(MRES_IGNORED);
 }
-void GetSpawnParms(edict_t *ent) {
+void GetSpawnParms(edict_t *UNREFERENCED( ent )) {
 	ENGINE_TRACE(pfnGetSpawnParms, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SaveSpawnParms(edict_t *ent) {
+void SaveSpawnParms(edict_t *UNREFERENCED( ent )) {
 	ENGINE_TRACE(pfnSaveSpawnParms, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-float VecToYaw(const float *rgflVector) {
+float VecToYaw(const float *UNREFERENCED( rgflVector )) {
 	ENGINE_TRACE(pfnVecToYaw, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0.0);
 }
-void VecToAngles(const float *rgflVectorIn, float *rgflVectorOut) {
+void VecToAngles(const float *UNREFERENCED( rgflVectorIn ), float *UNREFERENCED( rgflVectorOut )) {
 	ENGINE_TRACE(pfnVecToAngles, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void MoveToOrigin(edict_t *ent, const float *pflGoal, float dist, int iMoveType) {
+void MoveToOrigin(edict_t *UNREFERENCED( ent ), const float *UNREFERENCED( pflGoal ), 
+				   float UNREFERENCED( dist ), int UNREFERENCED( iMoveType )) {
 	ENGINE_TRACE(pfnMoveToOrigin, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ChangeYaw(edict_t *ent) {
+void ChangeYaw(edict_t *UNREFERENCED( ent )) {
 	ENGINE_TRACE(pfnChangeYaw, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void ChangePitch(edict_t *ent) {
+void ChangePitch(edict_t *UNREFERENCED( ent )) {
 	ENGINE_TRACE(pfnChangePitch, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -114,28 +115,29 @@ edict_t *FindEntityByString(edict_t *pEdictStartSearchAfter, const char *pszFiel
 				ed ? STRING(ed->v.classname) : "nil", pszField, pszValue));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-int GetEntityIllum(edict_t *pEnt) {
+int GetEntityIllum(edict_t *UNREFERENCED( pEnt )) {
 	ENGINE_TRACE(pfnGetEntityIllum, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-edict_t *FindEntityInSphere(edict_t *pEdictStartSearchAfter, const float *org, float rad) {
+edict_t *FindEntityInSphere(edict_t *UNREFERENCED( pEdictStartSearchAfter ), const float *UNREFERENCED( org ), float UNREFERENCED( rad )) {
 	ENGINE_TRACE(pfnFindEntityInSphere, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-edict_t *FindClientInPVS(edict_t *pEdict) {
+edict_t *FindClientInPVS(edict_t *UNREFERENCED( pEdict )) {
 	ENGINE_TRACE(pfnFindClientInPVS, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-edict_t *EntitiesInPVS(edict_t *pplayer) {
+edict_t *EntitiesInPVS(edict_t *UNREFERENCED( pplayer ) ) {
 	ENGINE_TRACE(pfnEntitiesInPVS, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
-void MakeVectors(const float *rgflVector) {
+void MakeVectors(const float *UNREFERENCED( rgflVector ) ) {
 	ENGINE_TRACE(pfnMakeVectors, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void AngleVectors(const float *rgflVector, float *forward, float *right, float *up) {
+void AngleVectors(const float *UNREFERENCED( rgflVector ), 
+				   float *UNREFERENCED( forward ), float *UNREFERENCED( right ), float *UNREFERENCED( up ) ) {
 	ENGINE_TRACE(pfnAngleVectors, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -153,24 +155,24 @@ edict_t *CreateNamedEntity(int className) {
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
-void MakeStatic(edict_t *ent) {
+void MakeStatic(edict_t *UNREFERENCED( ent ) ) {
 	ENGINE_TRACE(pfnMakeStatic, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int EntIsOnFloor(edict_t *e) {
+int EntIsOnFloor(edict_t *UNREFERENCED( e ) ) {
 	ENGINE_TRACE(pfnEntIsOnFloor, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int DropToFloor(edict_t *e) {
+int DropToFloor(edict_t *UNREFERENCED( e ) ) {
 	ENGINE_TRACE(pfnDropToFloor, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-int WalkMove(edict_t *ent, float yaw, float dist, int iMode) {
+int WalkMove(edict_t *UNREFERENCED( ent ), float UNREFERENCED( yaw ), float UNREFERENCED( dist ), int UNREFERENCED( iMode ) ) {
 	ENGINE_TRACE(pfnWalkMove, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void SetOrigin(edict_t *e, const float *rgflOrigin) {
+void SetOrigin(edict_t *e, const float *UNREFERENCED( rgflOrigin ) ) {
 	edict_t *ed = e;
 	ENGINE_TRACE(pfnSetOrigin, P_PRE, ("classname=%s netname=%s",
 				ed ? STRING(ed->v.classname) : "nil",
@@ -178,44 +180,51 @@ void SetOrigin(edict_t *e, const float *rgflOrigin) {
 	RETURN_META(MRES_IGNORED);
 }
 
-void EmitSound(edict_t *entity, int channel, const char *sample, /*int*/float volume, float attenuation, int fFlags, int pitch) {
+void EmitSound(edict_t *UNREFERENCED( entity ), int UNREFERENCED( channel ), const char *sample, 
+				/*int*/float UNREFERENCED( volume ), float UNREFERENCED( attenuation ), int UNREFERENCED( fFlags ), int UNREFERENCED( pitch ) ) {
 	ENGINE_TRACE(pfnEmitSound, P_PRE, ("sample=%s", sample));
 	RETURN_META(MRES_IGNORED);
 }
-void EmitAmbientSound(edict_t *entity, float *pos, const char *samp, float vol, float attenuation, int fFlags, int pitch) {
+void EmitAmbientSound(edict_t *UNREFERENCED( entity ), float *UNREFERENCED( pos ), const char *samp, 
+					   float UNREFERENCED( vol ), float UNREFERENCED( attenuation ), int UNREFERENCED( fFlags ), int UNREFERENCED( pitch ) ) {
 	ENGINE_TRACE(pfnEmitAmbientSound, P_PRE, ("sample=%s", samp));
 	RETURN_META(MRES_IGNORED);
 }
 
-void TraceLine(const float *v1, const float *v2, int fNoMonsters, edict_t *pentToSkip, TraceResult *ptr) {
+void TraceLine(const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ), int UNREFERENCED( fNoMonsters ), 
+				edict_t *UNREFERENCED( pentToSkip ), TraceResult *UNREFERENCED( ptr ) ) {
 	ENGINE_TRACE(pfnTraceLine, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void TraceToss(edict_t *pent, edict_t *pentToIgnore, TraceResult *ptr) {
+void TraceToss(edict_t *UNREFERENCED( pent ), edict_t *UNREFERENCED( pentToIgnore ), TraceResult *UNREFERENCED( ptr ) ) {
 	ENGINE_TRACE(pfnTraceToss, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int TraceMonsterHull(edict_t *pEdict, const float *v1, const float *v2, int fNoMonsters, edict_t *pentToSkip, TraceResult *ptr) {
+int TraceMonsterHull(edict_t *UNREFERENCED( pEdict ), const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ), 
+					  int UNREFERENCED( fNoMonsters ), edict_t *UNREFERENCED( pentToSkip ), TraceResult *UNREFERENCED( ptr ) ) {
 	ENGINE_TRACE(pfnTraceMonsterHull, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void TraceHull(const float *v1, const float *v2, int fNoMonsters, int hullNumber, edict_t *pentToSkip, TraceResult *ptr) {
+void TraceHull(const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ), int UNREFERENCED( fNoMonsters ), 
+				int UNREFERENCED( hullNumber ), edict_t *UNREFERENCED( pentToSkip ), TraceResult *UNREFERENCED( ptr ) ) {
 	ENGINE_TRACE(pfnTraceHull, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void TraceModel(const float *v1, const float *v2, int hullNumber, edict_t *pent, TraceResult *ptr) {
+void TraceModel(const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ), int UNREFERENCED( hullNumber ), 
+				 edict_t *UNREFERENCED( pent ), TraceResult *UNREFERENCED( ptr )) {
 	ENGINE_TRACE(pfnTraceModel, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-const char *TraceTexture(edict_t *pTextureEntity, const float *v1, const float *v2 ) {
+const char *TraceTexture(edict_t *UNREFERENCED( pTextureEntity ), const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ) ) {
 	ENGINE_TRACE(pfnTraceTexture, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void TraceSphere(const float *v1, const float *v2, int fNoMonsters, float radius, edict_t *pentToSkip, TraceResult *ptr) {
+void TraceSphere(const float *UNREFERENCED( v1 ), const float *UNREFERENCED( v2 ), int UNREFERENCED( fNoMonsters ), float UNREFERENCED( radius ), 
+				  edict_t *UNREFERENCED( pentToSkip ), TraceResult *UNREFERENCED( ptr ) ) {
 	ENGINE_TRACE(pfnTraceSphere, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void GetAimVector(edict_t *ent, float speed, float *rgflReturn) {
+void GetAimVector(edict_t *UNREFERENCED( ent ), float UNREFERENCED( speed ), float *UNREFERENCED( rgflReturn ) ) {
 	ENGINE_TRACE(pfnGetAimVector, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -228,7 +237,7 @@ void ServerExecute(void) {
 	ENGINE_TRACE(pfnServerExecute, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void engClientCommand(edict_t *pEdict, char *szFmt, ...) {
+void engClientCommand(edict_t *UNREFERENCED( pEdict ), char *szFmt, ...) {
 	va_list ap;
 	char buf[1024];
 	char *cp;
@@ -241,24 +250,24 @@ void engClientCommand(edict_t *pEdict, char *szFmt, ...) {
 	RETURN_META(MRES_IGNORED);
 }
 
-void ParticleEffect(const float *org, const float *dir, float color, float count) {
+void ParticleEffect(const float *UNREFERENCED( org ), const float *UNREFERENCED( dir ), float UNREFERENCED( color ), float UNREFERENCED( count ) ) {
 	ENGINE_TRACE(pfnParticleEffect, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void LightStyle(int style, char *val) {
+void LightStyle(int UNREFERENCED( style ), char *UNREFERENCED( val ) ) {
 	ENGINE_TRACE(pfnLightStyle, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int DecalIndex(const char *name) {
+int DecalIndex(const char *UNREFERENCED( name ) ) {
 	ENGINE_TRACE(pfnDecalIndex, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int PointContents(const float *rgflVector) {
+int PointContents(const float *UNREFERENCED( rgflVector ) ) {
 	ENGINE_TRACE(pfnPointContents, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void MessageBegin(int msg_dest, int msg_type, const float *pOrigin, edict_t *ed) {
+void MessageBegin(int msg_dest, int msg_type, const float *UNREFERENCED( pOrigin ), edict_t *ed) {
 	const char *name, *dest;
 	name=GET_USER_MSG_NAME(PLID, msg_type, NULL);
 	if(!name) name="unknown";
@@ -274,27 +283,27 @@ void MessageEnd(void) {
 	RETURN_META(MRES_IGNORED);
 }
 
-void WriteByte(int iValue) {
+void WriteByte(int UNREFERENCED( iValue )) {
 	ENGINE_TRACE(pfnWriteByte, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteChar(int iValue) {
+void WriteChar(int UNREFERENCED( iValue ) ) {
 	ENGINE_TRACE(pfnWriteChar, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteShort(int iValue) {
+void WriteShort(int UNREFERENCED( iValue ) ) {
 	ENGINE_TRACE(pfnWriteShort, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteLong(int iValue) {
+void WriteLong(int UNREFERENCED( iValue ) ) {
 	ENGINE_TRACE(pfnWriteLong, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteAngle(float flValue) {
+void WriteAngle(float UNREFERENCED( flValue ) ) {
 	ENGINE_TRACE(pfnWriteAngle, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteCoord(float flValue) {
+void WriteCoord(float UNREFERENCED( flValue ) ) {
 	ENGINE_TRACE(pfnWriteCoord, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -302,7 +311,7 @@ void WriteString(const char *sz) {
 	ENGINE_TRACE(pfnWriteString, P_PRE, ("string=%s", sz));
 	RETURN_META(MRES_IGNORED);
 }
-void WriteEntity(int iValue) {
+void WriteEntity(int UNREFERENCED( iValue ) ) {
 	ENGINE_TRACE(pfnWriteEntity, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -365,9 +374,9 @@ void AlertMessage(ALERT_TYPE atype, char *szFmt, ...) {
 	RETURN_META(MRES_IGNORED);
 }
 #ifdef HLSDK_3_2_OLD_EIFACE
-void EngineFprintf(FILE *pfile, char *szFmt, ...) {
+void EngineFprintf(FILE *UNREFERENCED( pfile ), char *szFmt, ...) {
 #else
-void EngineFprintf(void *pfile, char *szFmt, ...) {
+void EngineFprintf(void *UNREFERENCED( pfile ), char *szFmt, ...) {
 #endif
 	va_list ap;
 	char buf[1024];
@@ -379,23 +388,23 @@ void EngineFprintf(void *pfile, char *szFmt, ...) {
 }
 
 #ifdef HLSDK_3_2_OLD_EIFACE
-void *PvAllocEntPrivateData(edict_t *pEdict, long cb) {
+void *PvAllocEntPrivateData(edict_t *UNREFERENCED( pEdict ), long UNREFERENCED( cb )) {
 #else
-void *PvAllocEntPrivateData(edict_t *pEdict, int32 cb) {
+void *PvAllocEntPrivateData(edict_t *UNREFERENCED( pEdict ), int32 UNREFERENCED( cb )) {
 #endif
 	ENGINE_TRACE(pfnPvAllocEntPrivateData, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void *PvEntPrivateData(edict_t *pEdict) {
+void *PvEntPrivateData(edict_t *UNREFERENCED( pEdict ) ) {
 	ENGINE_TRACE(pfnPvEntPrivateData, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void FreeEntPrivateData(edict_t *pEdict) {
+void FreeEntPrivateData(edict_t *UNREFERENCED( pEdict ) ) {
 	ENGINE_TRACE(pfnFreeEntPrivateData, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-const char *SzFromIndex(int iString) {
+const char *SzFromIndex(int UNREFERENCED( iString ) ) {
 	ENGINE_TRACE(pfnSzFromIndex, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
@@ -405,11 +414,11 @@ int AllocString(const char *szValue) {
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-struct entvars_s *GetVarsOfEnt(edict_t *pEdict) {
+struct entvars_s *GetVarsOfEnt(edict_t *UNREFERENCED( pEdict )) {
 	ENGINE_TRACE(pfnGetVarsOfEnt, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-edict_t *PEntityOfEntOffset(int iEntOffset) {
+edict_t *PEntityOfEntOffset(int UNREFERENCED( iEntOffset ) ) {
 	ENGINE_TRACE(pfnPEntityOfEntOffset, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
@@ -420,7 +429,7 @@ int EntOffsetOfPEntity(const edict_t *pEdict) {
 				ed ? STRING(ed->v.netname) : "nil"));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int IndexOfEdict(const edict_t *pEdict) {
+int IndexOfEdict(const edict_t *UNREFERENCED( pEdict ) ) {
 	ENGINE_TRACE(pfnIndexOfEdict, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -428,11 +437,11 @@ edict_t *PEntityOfEntIndex(int iEntIndex) {
 	ENGINE_TRACE(pfnPEntityOfEntIndex, P_PRE, ("index=%d", iEntIndex));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-edict_t *FindEntityByVars(struct entvars_s *pvars) {
+edict_t *FindEntityByVars(struct entvars_s *UNREFERENCED( pvars ) ) {
 	ENGINE_TRACE(pfnFindEntityByVars, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void *GetModelPtr(edict_t *pEdict) {
+void *GetModelPtr(edict_t *UNREFERENCED( pEdict ) ) {
 	ENGINE_TRACE(pfnGetModelPtr, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
@@ -443,11 +452,12 @@ int RegUserMsg(const char *pszName, int iSize) {
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void AnimationAutomove(const edict_t *pEdict, float flTime) {
+void AnimationAutomove(const edict_t *UNREFERENCED( pEdict ), float UNREFERENCED( flTime ) ) {
 	ENGINE_TRACE(pfnAnimationAutomove, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void GetBonePosition(const edict_t *pEdict, int iBone, float *rgflOrigin, float *rgflAngles ) {
+void GetBonePosition(const edict_t *UNREFERENCED( pEdict ), int UNREFERENCED( iBone ), 
+					  float *UNREFERENCED( rgflOrigin ), float *UNREFERENCED( rgflAngles ) ) {
 	ENGINE_TRACE(pfnGetBonePosition, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -461,16 +471,16 @@ uint32 FunctionFromName( const char *pName ) {
 	RETURN_META_VALUE(MRES_IGNORED, 0UL);
 }
 #ifdef HLSDK_3_2_OLD_EIFACE
-const char *NameForFunction( unsigned long function ) {
+const char *NameForFunction( unsigned long UNREFERENCED( function ) ) {
 #else
-const char *NameForFunction( uint32 function ) {
+const char *NameForFunction( uint32 UNREFERENCED( function ) ) {
 #endif
 	ENGINE_TRACE(pfnNameForFunction, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
 //! JOHN: engine callbacks so game DLL can print messages to individual clients
-void ClientPrintf( edict_t *pEdict, PRINT_TYPE ptype, const char *szMsg ) {
+void ClientPrintf( edict_t *UNREFERENCED( pEdict ), PRINT_TYPE UNREFERENCED( ptype ), const char *szMsg ) {
 	ENGINE_TRACE(pfnClientPrintf, P_PRE, ("msg=%s", szMsg));
 	RETURN_META(MRES_IGNORED);
 }
@@ -496,24 +506,25 @@ int Cmd_Argc( void ) {
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void GetAttachment(const edict_t *pEdict, int iAttachment, float *rgflOrigin, float *rgflAngles ) {
+void GetAttachment(const edict_t *UNREFERENCED( pEdict ), int UNREFERENCED( iAttachment ), 
+					float *UNREFERENCED( rgflOrigin ), float *UNREFERENCED( rgflAngles ) ) {
 	ENGINE_TRACE(pfnGetAttachment, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-void CRC32_Init(CRC32_t *pulCRC) {
+void CRC32_Init(CRC32_t *UNREFERENCED( pulCRC ) ) {
 	ENGINE_TRACE(pfnCRC32_Init, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void CRC32_ProcessBuffer(CRC32_t *pulCRC, void *p, int len) {
+void CRC32_ProcessBuffer(CRC32_t *UNREFERENCED( pulCRC ), void *UNREFERENCED( p ), int UNREFERENCED( len ) ) {
 	ENGINE_TRACE(pfnCRC32_ProcessBuffer, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void CRC32_ProcessByte(CRC32_t *pulCRC, unsigned char ch) {
+void CRC32_ProcessByte(CRC32_t *UNREFERENCED( pulCRC ), unsigned char UNREFERENCED( ch ) ) {
 	ENGINE_TRACE(pfnCRC32_ProcessByte, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-CRC32_t CRC32_Final(CRC32_t pulCRC) {
+CRC32_t CRC32_Final(CRC32_t UNREFERENCED( pulCRC ) ) {
 	ENGINE_TRACE(pfnCRC32_Final, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -533,7 +544,7 @@ float RandomFloat(float flLow, float flHigh) {
 	RETURN_META_VALUE(MRES_IGNORED, 0.0);
 }
 
-void SetView(const edict_t *pClient, const edict_t *pViewent ) {
+void SetView(const edict_t *UNREFERENCED( pClient ), const edict_t *UNREFERENCED( pViewent ) ) {
 	ENGINE_TRACE(pfnSetView, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -542,16 +553,16 @@ float Time( void ) {
 	ENGINE_TRACE(pfnTime, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0.0);
 }
-void CrosshairAngle(const edict_t *pClient, float pitch, float yaw) {
+void CrosshairAngle(const edict_t *UNREFERENCED( pClient ), float UNREFERENCED( pitch ), float UNREFERENCED( yaw )) {
 	ENGINE_TRACE(pfnCrosshairAngle, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-byte *LoadFileForMe(char *filename, int *pLength) {
+byte *LoadFileForMe(char *filename, int *UNREFERENCED( pLength )) {
 	ENGINE_TRACE(pfnLoadFileForMe, P_PRE, ("file=%s", filename));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void FreeFile(void *buffer) {
+void FreeFile(void *UNREFERENCED( buffer )) {
 	ENGINE_TRACE(pfnFreeFile, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -561,11 +572,11 @@ void EndSection(const char *pszSectionName) {
 	ENGINE_TRACE(pfnEndSection, P_PRE, ("section=%s", pszSectionName));
 	RETURN_META(MRES_IGNORED);
 }
-int CompareFileTime(char *filename1, char *filename2, int *iCompare) {
+int CompareFileTime(char *filename1, char *filename2, int *UNREFERENCED( iCompare )) {
 	ENGINE_TRACE(pfnCompareFileTime, P_PRE, ("file1=%s, file2=%s", filename1, filename2));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void GetGameDir(char *szGetGameDir) {
+void GetGameDir(char *UNREFERENCED( szGetGameDir )) {
 	// trace output in Post
 	ENGINE_TRACE(pfnGetGameDir, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
@@ -574,11 +585,13 @@ void Cvar_RegisterVariable(cvar_t *variable) {
 	ENGINE_TRACE(pfnCvar_RegisterVariable, P_PRE, ("cvar=%s", variable->name));
 	RETURN_META(MRES_IGNORED);
 }
-void FadeClientVolume(const edict_t *pEdict, int fadePercent, int fadeOutSeconds, int holdTime, int fadeInSeconds) {
+void FadeClientVolume(const edict_t *UNREFERENCED( pEdict ), int UNREFERENCED( fadePercent ), 
+					   int UNREFERENCED( fadeOutSeconds ), int UNREFERENCED( holdTime ), 
+					   int UNREFERENCED( fadeInSeconds ) ) {
 	ENGINE_TRACE(pfnFadeClientVolume, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SetClientMaxspeed(const edict_t *pEdict, float fNewMaxspeed) {
+void SetClientMaxspeed(const edict_t *UNREFERENCED( pEdict ), float UNREFERENCED( fNewMaxspeed ) ) {
 	ENGINE_TRACE(pfnSetClientMaxspeed, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -587,7 +600,9 @@ edict_t * CreateFakeClient(const char *netname) {
 	ENGINE_TRACE(pfnCreateFakeClient, P_PRE, ("name=%s", netname));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void RunPlayerMove(edict_t *fakeclient, const float *viewangles, float forwardmove, float sidemove, float upmove, unsigned short buttons, byte impulse, byte msec ) {
+void RunPlayerMove(edict_t *UNREFERENCED( fakeclient ), const float *UNREFERENCED( viewangles ), 
+					float UNREFERENCED( forwardmove ), float UNREFERENCED( sidemove ), float UNREFERENCED( upmove ), 
+					unsigned short UNREFERENCED( buttons ), byte UNREFERENCED( impulse ), byte UNREFERENCED( msec ) ) {
 	ENGINE_TRACE(pfnRunPlayerMove, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -598,19 +613,19 @@ int NumberOfEntities(void) {
 }
 
 //! passing in NULL gets the serverinfo
-char *GetInfoKeyBuffer(edict_t *e) {
+char *GetInfoKeyBuffer(edict_t *UNREFERENCED( e )) {
 	ENGINE_TRACE(pfnGetInfoKeyBuffer, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-char *InfoKeyValue(char *infobuffer, char *key) {
+char *InfoKeyValue(char *UNREFERENCED( infobuffer ), char *key) {
 	ENGINE_TRACE(pfnInfoKeyValue, P_PRE, ("key=%s", key));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void SetKeyValue(char *infobuffer, char *key, char *value) {
+void SetKeyValue(char *UNREFERENCED( infobuffer ), char *key, char *value) {
 	ENGINE_TRACE(pfnSetKeyValue, P_PRE, ("key=%s, value=%s", key, value));
 	RETURN_META(MRES_IGNORED);
 }
-void SetClientKeyValue(int clientIndex, char *infobuffer, char *key, char *value) {
+void SetClientKeyValue(int clientIndex, char *UNREFERENCED( infobuffer ), char *key, char *value) {
 	ENGINE_TRACE(pfnSetClientKeyValue, P_PRE, ("index=%d, key=%s, value=%s", clientIndex, key, value));
 	RETURN_META(MRES_IGNORED);
 }
@@ -620,7 +635,8 @@ int IsMapValid(char *filename) {
 	ENGINE_TRACE(pfnIsMapValid, P_PRE, ("filename=%s", filename));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void StaticDecal( const float *origin, int decalIndex, int entityIndex, int modelIndex ) {
+void StaticDecal( const float *UNREFERENCED( origin ), int UNREFERENCED( decalIndex ), 
+				  int UNREFERENCED( entityIndex ), int UNREFERENCED( modelIndex ) ) {
 	ENGINE_TRACE(pfnStaticDecal, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -636,7 +652,10 @@ int GetPlayerUserId(edict_t *e ) {
 				ed ? STRING(ed->v.netname) : "nil"));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void BuildSoundMsg(edict_t *entity, int channel, const char *sample, /*int*/float volume, float attenuation, int fFlags, int pitch, int msg_dest, int msg_type, const float *pOrigin, edict_t *ed) 
+void BuildSoundMsg(edict_t *UNREFERENCED( entity ), int UNREFERENCED( channel ), const char *sample, 
+					/*int*/float UNREFERENCED( volume ), float UNREFERENCED( attenuation ), 
+					int UNREFERENCED( fFlags ), int UNREFERENCED( pitch ), int UNREFERENCED( msg_dest ), int UNREFERENCED( msg_type ), 
+					const float *UNREFERENCED( pOrigin ), edict_t *UNREFERENCED( ed ) )
 {
 	ENGINE_TRACE(pfnBuildSoundMsg, P_PRE, ("sample=%s", sample));
 	RETURN_META(MRES_IGNORED);
@@ -660,55 +679,61 @@ unsigned int GetPlayerWONId(edict_t *e) {
 }
 
 //! YWB 8/1/99 TFF Physics additions
-void Info_RemoveKey( char *s, const char *key ) {
+void Info_RemoveKey( char *UNREFERENCED( s ), const char *key ) {
 	ENGINE_TRACE(pfnInfo_RemoveKey, P_PRE, ("key=%s", key));
 	RETURN_META(MRES_IGNORED);
 }
-const char *GetPhysicsKeyValue( const edict_t *pClient, const char *key ) {
+const char *GetPhysicsKeyValue( const edict_t *UNREFERENCED( pClient ), const char *key ) {
 	ENGINE_TRACE(pfnGetPhysicsKeyValue, P_PRE, ("key=%s", key));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-void SetPhysicsKeyValue( const edict_t *pClient, const char *key, const char *value ) {
+void SetPhysicsKeyValue( const edict_t *UNREFERENCED( pClient ), const char *key, const char *value ) {
 	ENGINE_TRACE(pfnSetPhysicsKeyValue, P_PRE, ("key=%s, value=%s", key, value));
 	RETURN_META(MRES_IGNORED);
 }
-const char *GetPhysicsInfoString( const edict_t *pClient ) {
+const char *GetPhysicsInfoString( const edict_t *UNREFERENCED( pClient ) ) {
 	ENGINE_TRACE(pfnGetPhysicsInfoString, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-unsigned short PrecacheEvent( int type, const char *psz ) {
+unsigned short PrecacheEvent( int UNREFERENCED( type ), const char *psz ) {
 	ENGINE_TRACE(pfnPrecacheEvent, P_PRE, ("event=%s", psz));
 	RETURN_META_VALUE(MRES_IGNORED, 0U);
 }
-void PlaybackEvent( int flags, const edict_t *pInvoker, unsigned short eventindex, float delay, float *origin, float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 ) 
+void PlaybackEvent( int UNREFERENCED( flags ), const edict_t *UNREFERENCED( pInvoker ), 
+					unsigned short UNREFERENCED( eventindex ), float UNREFERENCED( delay ), 
+					float *UNREFERENCED( origin ), float *UNREFERENCED( angles ), 
+					float UNREFERENCED( fparam1 ), float UNREFERENCED( fparam2 ), 
+					int UNREFERENCED( iparam1 ), int UNREFERENCED( iparam2 ), 
+					int UNREFERENCED( bparam1 ), int UNREFERENCED( bparam2 ) )
 {
 	ENGINE_TRACE(pfnPlaybackEvent, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-unsigned char *SetFatPVS( float *org ) {
+unsigned char *SetFatPVS( float *UNREFERENCED( org ) ) {
 	ENGINE_TRACE(pfnSetFatPVS, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-unsigned char *SetFatPAS( float *org ) {
+unsigned char *SetFatPAS( float *UNREFERENCED( org ) ) {
 	ENGINE_TRACE(pfnSetFatPAS, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
-int CheckVisibility( const edict_t *entity, unsigned char *pset ) {
+int CheckVisibility( const edict_t *UNREFERENCED( entity ), unsigned char *UNREFERENCED( pset ) ) {
 	ENGINE_TRACE(pfnCheckVisibility, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void DeltaSetField( struct delta_s *pFields, const char *fieldname ) {
+void DeltaSetField( struct delta_s *UNREFERENCED( pFields ), const char *fieldname ) {
 	ENGINE_TRACE(pfnDeltaSetField, P_PRE, ("field=%s", fieldname));
 	RETURN_META(MRES_IGNORED);
 }
-void DeltaUnsetField( struct delta_s *pFields, const char *fieldname ) {
+void DeltaUnsetField( struct delta_s *UNREFERENCED( pFields ), const char *fieldname ) {
 	ENGINE_TRACE(pfnDeltaUnsetField, P_PRE, ("field=%s", fieldname));
 	RETURN_META(MRES_IGNORED);
 }
-void DeltaAddEncoder( char *name, void (*conditionalencode)( struct delta_s *pFields, const unsigned char *from, const unsigned char *to ) ) {
+void DeltaAddEncoder( char *UNREFERENCED( name ), 
+					  void (*UNREFERENCED( conditionalencode ))( struct delta_s *pFields, const unsigned char *from, const unsigned char *to ) ) {
 	ENGINE_TRACE(pfnDeltaAddEncoder, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -717,33 +742,33 @@ int GetCurrentPlayer( void ) {
 	ENGINE_TRACE(pfnGetCurrentPlayer, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int CanSkipPlayer( const edict_t *player ) {
+int CanSkipPlayer( const edict_t *UNREFERENCED( player ) ) {
 	ENGINE_TRACE(pfnCanSkipPlayer, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int DeltaFindField( struct delta_s *pFields, const char *fieldname ) {
+int DeltaFindField( struct delta_s *UNREFERENCED( pFields ), const char *UNREFERENCED( fieldname ) ) {
 	ENGINE_TRACE(pfnDeltaFindField, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void DeltaSetFieldByIndex( struct delta_s *pFields, int fieldNumber ) {
+void DeltaSetFieldByIndex( struct delta_s *UNREFERENCED( pFields ), int UNREFERENCED( fieldNumber ) ) {
 	ENGINE_TRACE(pfnDeltaSetFieldByIndex, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DeltaUnsetFieldByIndex( struct delta_s *pFields, int fieldNumber ) {
+void DeltaUnsetFieldByIndex( struct delta_s *UNREFERENCED( pFields ), int UNREFERENCED( fieldNumber ) ) {
 	ENGINE_TRACE(pfnDeltaUnsetFieldByIndex, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-void SetGroupMask( int mask, int op ) {
+void SetGroupMask( int UNREFERENCED( mask ), int UNREFERENCED( op ) ) {
 	ENGINE_TRACE(pfnSetGroupMask, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-int engCreateInstancedBaseline( int classname, struct entity_state_s *baseline ) {
+int engCreateInstancedBaseline( int UNREFERENCED( classname ), struct entity_state_s *UNREFERENCED( baseline ) ) {
 	ENGINE_TRACE(pfnCreateInstancedBaseline, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void Cvar_DirectSet( struct cvar_s *var, char *value ) {
+void Cvar_DirectSet( struct cvar_s *var, char *UNREFERENCED( value ) ) {
 	ENGINE_TRACE(pfnCvar_DirectSet, P_PRE, ("cvar=%s", var->name));
 	RETURN_META(MRES_IGNORED);
 }
@@ -751,17 +776,19 @@ void Cvar_DirectSet( struct cvar_s *var, char *value ) {
 //! Forces the client and server to be running with the same version of the specified file
 //!( e.g., a player model ).
 //! Calling this has no effect in single player
-void ForceUnmodified( FORCE_TYPE type, float *mins, float *maxs, const char *filename ) {
+void ForceUnmodified( FORCE_TYPE UNREFERENCED( type ), 
+					  float *UNREFERENCED( mins ), float *UNREFERENCED( maxs ), 
+					  const char *filename ) {
 	ENGINE_TRACE(pfnForceUnmodified, P_PRE, ("file=%s", filename));
 	RETURN_META(MRES_IGNORED);
 }
 
-void GetPlayerStats( const edict_t *pClient, int *ping, int *packet_loss ) {
+void GetPlayerStats( const edict_t *pClient, int *UNREFERENCED( ping ), int *UNREFERENCED( packet_loss ) ) {
 	ENGINE_TRACE(pfnGetPlayerStats, P_PRE, ("name=%s", STRING(pClient->v.netname)));
 	RETURN_META(MRES_IGNORED);
 }
 
-void AddServerCommand( char *cmd_name, void (*function) (void) ) {
+void AddServerCommand( char *cmd_name, void (*UNREFERENCED( function ) ) (void) ) {
 	ENGINE_TRACE(pfnAddServerCommand, P_PRE, ("cmd=%s", cmd_name));
 	RETURN_META(MRES_IGNORED);
 }
@@ -770,18 +797,18 @@ void AddServerCommand( char *cmd_name, void (*function) (void) ) {
 
 //! For voice communications, set which clients hear eachother.
 //! NOTE: these functions take player entity indices (starting at 1).
-qboolean Voice_GetClientListening(int iReceiver, int iSender) {
+qboolean Voice_GetClientListening(int UNREFERENCED( iReceiver ), int UNREFERENCED( iSender ) ) {
 	ENGINE_TRACE(pfnVoice_GetClientListening, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, false);
 }
-qboolean Voice_SetClientListening(int iReceiver, int iSender, qboolean bListen) {
+qboolean Voice_SetClientListening(int UNREFERENCED( iReceiver ), int UNREFERENCED( iSender ), qboolean UNREFERENCED( bListen ) ) {
 	ENGINE_TRACE(pfnVoice_SetClientListening, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, false);
 }
 
 // Added for HL 1109 (no SDK update):
 
-const char *GetPlayerAuthId(edict_t *e) {
+const char *GetPlayerAuthId(edict_t *UNREFERENCED( e ) ) {
 	// trace output in Post
 	ENGINE_TRACE(pfnGetPlayerAuthId, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
@@ -789,22 +816,22 @@ const char *GetPlayerAuthId(edict_t *e) {
 
 // Added 2003/11/10 (no SDK update):
 
-sequenceEntry_s*SequenceGet(const char* fileName, const char* entryName) {
+sequenceEntry_s*SequenceGet(const char* UNREFERENCED( fileName ), const char* UNREFERENCED( entryName ) ) {
 	ENGINE_TRACE(pfnSequenceGet, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
-sentenceEntry_s *SequencePickSentence(const char* groupName, int pickMethod, int *picked) {
+sentenceEntry_s *SequencePickSentence(const char* UNREFERENCED( groupName ), int UNREFERENCED( pickMethod ), int *UNREFERENCED( picked ) ) {
 	ENGINE_TRACE(pfnSequencePickSentence, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
 
-int GetFileSize(char *filename) {
+int GetFileSize(char *UNREFERENCED( filename ) ) {
 	ENGINE_TRACE(pfnGetFileSize, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-unsigned int GetApproxWavePlayLen(const char *filepath) {
+unsigned int GetApproxWavePlayLen(const char *UNREFERENCED( filepath )) {
 	ENGINE_TRACE(pfnGetApproxWavePlayLen, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -814,27 +841,27 @@ int IsCareerMatch(void) {
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-int GetLocalizedStringLength(const char *label) {
+int GetLocalizedStringLength(const char *UNREFERENCED( label ) ) {
 	ENGINE_TRACE(pfnGetLocalizedStringLength, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void RegisterTutorMessageShown(int mid) {
+void RegisterTutorMessageShown(int UNREFERENCED( mid )) {
 	ENGINE_TRACE(pfnRegisterTutorMessageShown, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-int GetTimesTutorMessageShown(int mid) {
+int GetTimesTutorMessageShown(int UNREFERENCED( mid ) ) {
 	ENGINE_TRACE(pfnGetTimesTutorMessageShown, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
 
-void ProcessTutorMessageDecayBuffer(int *buffer, int bufferLength) {
+void ProcessTutorMessageDecayBuffer(int *UNREFERENCED( buffer ), int UNREFERENCED( bufferLength ) ) {
 	ENGINE_TRACE(pfnProcessTutorMessageDecayBuffer, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
-void ConstructTutorMessageDecayBuffer(int *buffer, int bufferLength) {
+void ConstructTutorMessageDecayBuffer(int *UNREFERENCED( buffer ), int UNREFERENCED( bufferLength ) ) {
 	ENGINE_TRACE(pfnConstructTutorMessageDecayBuffer, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -844,19 +871,19 @@ void ResetTutorMessageDecayData(void) {
 	RETURN_META(MRES_IGNORED);
 }
 
-void QueryClientCvarValue(const edict_t *pEdict, const char *cvarName)
+void QueryClientCvarValue(const edict_t *UNREFERENCED( pEdict ), const char *cvarName)
 {
 	ENGINE_TRACE(pfnQueryClientCvarValue, P_PRE, ("queried=%s",cvarName?cvarName:"nil"));
 	RETURN_META(MRES_IGNORED);
 }
 
-void QueryClientCvarValue2(const edict_t *pEdict, const char *cvarName, int requestID)
+void QueryClientCvarValue2(const edict_t *UNREFERENCED( pEdict ), const char *cvarName, int requestID)
 {
 	ENGINE_TRACE(pfnQueryClientCvarValue2, P_PRE, ("queried=%s, requestID=%d",cvarName?cvarName:"nil",requestID));
 	RETURN_META(MRES_IGNORED);
 }
 
-int EngCheckParm(const char *pchCmdLineToken, char **pchNextVal)
+int EngCheckParm(const char *pchCmdLineToken, char **UNREFERENCED( pchNextVal ))
 {
 	ENGINE_TRACE(pfnEngCheckParm, P_PRE, ("token=%s",pchCmdLineToken?pchCmdLineToken:"nil"));
 	RETURN_META_VALUE(MRES_IGNORED, 0);

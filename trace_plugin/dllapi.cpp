@@ -58,32 +58,32 @@ int DispatchSpawn( edict_t *pent ) {
 	// 0==Success, -1==Failure ?
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void DispatchThink( edict_t *pent ) {
+void DispatchThink( edict_t *UNREFERENCED( pent ) ) {
 	DLL_TRACE(pfnThink, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchUse( edict_t *pentUsed, edict_t *pentOther ) {
+void DispatchUse( edict_t *UNREFERENCED( pentUsed ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnUse, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchTouch( edict_t *pentTouched, edict_t *pentOther ) {
+void DispatchTouch( edict_t *UNREFERENCED( pentTouched ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnTouch, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchBlocked( edict_t *pentBlocked, edict_t *pentOther ) {
+void DispatchBlocked( edict_t *UNREFERENCED( pentBlocked ), edict_t *UNREFERENCED( pentOther ) ) {
 	DLL_TRACE(pfnBlocked, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchKeyValue( edict_t *pentKeyvalue, KeyValueData *pkvd ) {
+void DispatchKeyValue( edict_t *UNREFERENCED( pentKeyvalue ), KeyValueData *pkvd ) {
 	DLL_TRACE(pfnKeyValue, P_PRE, ("classname=%s keyname=%s value=%s", P_PRE,
 			pkvd->szClassName, pkvd->szKeyName, pkvd->szValue));
 	RETURN_META(MRES_IGNORED);
 }
-void DispatchSave( edict_t *pent, SAVERESTOREDATA *pSaveData ) {
+void DispatchSave( edict_t *UNREFERENCED( pent ), SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnSave, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity ) {
+int DispatchRestore( edict_t *UNREFERENCED( pent ), SAVERESTOREDATA *UNREFERENCED( pSaveData ), int UNREFERENCED( globalEntity ) ) {
 	DLL_TRACE(pfnRestore, P_PRE, (""));
 	// 0==Success, -1==Failure ?
 	RETURN_META_VALUE(MRES_IGNORED, 0);
@@ -95,21 +95,23 @@ void DispatchObjectCollsionBox( edict_t *pent ) {
 				ed ? STRING(ed->v.netname) : "nil"));
 	RETURN_META(MRES_IGNORED);
 }
-void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount ) {
+void SaveWriteFields( SAVERESTOREDATA *UNREFERENCED( pSaveData ), const char *UNREFERENCED( pname ), 
+					  void *UNREFERENCED( pBaseData ), TYPEDESCRIPTION *UNREFERENCED( pFields ), int UNREFERENCED( fieldCount ) ) {
 	DLL_TRACE(pfnSaveWriteFields, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount ) {
+void SaveReadFields( SAVERESTOREDATA *UNREFERENCED( pSaveData ), const char *UNREFERENCED( pname ), 
+					 void *UNREFERENCED( pBaseData ), TYPEDESCRIPTION *UNREFERENCED( pFields ), int UNREFERENCED( fieldCount ) ) {
 	DLL_TRACE(pfnSaveReadFields, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
 
 // from SDK dlls/world.cpp:
-void SaveGlobalState( SAVERESTOREDATA *pSaveData ) {
+void SaveGlobalState( SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnSaveGlobalState, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void RestoreGlobalState( SAVERESTOREDATA *pSaveData ) {
+void RestoreGlobalState( SAVERESTOREDATA *UNREFERENCED( pSaveData ) ) {
 	DLL_TRACE(pfnRestoreGlobalState, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -119,7 +121,7 @@ void ResetGlobalState( void ) {
 }
 
 //! from SDK dlls/client.cpp:
-BOOL ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ]  ) {
+BOOL ClientConnect( edict_t *UNREFERENCED( pEntity ), const char *pszName, const char *pszAddress, char UNREFERENCED( szRejectReason )[ 128 ]  ) {
 	DLL_TRACE(pfnClientConnect, P_PRE, ("name=%s, addr=%s", pszName, pszAddress));
 	RETURN_META_VALUE(MRES_IGNORED, FALSE);
 }
@@ -141,11 +143,11 @@ void ClientCommand( edict_t *pEntity ) {
 				CMD_ARGC() >= 1 ? CMD_ARGS() : ""));
 	RETURN_META(MRES_IGNORED);
 }
-void ClientUserInfoChanged( edict_t *pEntity, char *infobuffer ) {
+void ClientUserInfoChanged( edict_t *pEntity, char *UNREFERENCED( infobuffer ) ) {
 	DLL_TRACE(pfnClientUserInfoChanged, P_PRE, ("name=%s", STRING(pEntity->v.netname)));
 	RETURN_META(MRES_IGNORED);
 }
-void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax ) {
+void ServerActivate( edict_t *UNREFERENCED( pEdictList ), int edictCount, int clientMax ) {
 	DLL_TRACE(pfnServerActivate, P_PRE, ("count=%d, max=%d", edictCount, clientMax));
 	RETURN_META(MRES_IGNORED);
 }
@@ -177,19 +179,19 @@ const char *GetGameDescription( void ) {
 	DLL_TRACE(pfnGetGameDescription, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, "");
 }
-void PlayerCustomization( edict_t *pEntity, customization_t *pCust ) {
+void PlayerCustomization( edict_t *pEntity, customization_t *UNREFERENCED( pCust ) ) {
 	DLL_TRACE(pfnPlayerCustomization, P_PRE, ("name=%s", STRING(pEntity->v.netname)));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorConnect( edict_t *pEntity ) {
+void SpectatorConnect( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorConnect, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorDisconnect( edict_t *pEntity ) {
+void SpectatorDisconnect( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorDisconnect, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void SpectatorThink( edict_t *pEntity ) {
+void SpectatorThink( edict_t *UNREFERENCED( pEntity ) ) {
 	DLL_TRACE(pfnSpectatorThink, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -199,11 +201,11 @@ void Sys_Error( const char *error_string ) {
 }
 
 // from SDK pm_shared/pm_shared.c:
-void PM_Move ( struct playermove_s *ppmove, int server ) {
+void PM_Move ( struct playermove_s *UNREFERENCED( ppmove ), int UNREFERENCED( server ) ) {
 	DLL_TRACE(pfnPM_Move, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void PM_Init( struct playermove_s *ppmove ) {
+void PM_Init( struct playermove_s *UNREFERENCED( ppmove ) ) {
 	DLL_TRACE(pfnPM_Init, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -213,19 +215,22 @@ char PM_FindTextureType( char *name ) {
 }
 
 // from SDK dlls/client.cpp:
-void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas ) {
+void SetupVisibility( edict_t *UNREFERENCED( pViewEntity ), edict_t *UNREFERENCED( pClient ), 
+					  unsigned char **UNREFERENCED( pvs ), unsigned char **UNREFERENCED( pas ) ) {
 	DLL_TRACE(pfnSetupVisibility, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-void UpdateClientData ( const struct edict_s *ent, int sendweapons, struct clientdata_s *cd ) {
+void UpdateClientData ( const struct edict_s *UNREFERENCED( ent ), int UNREFERENCED( sendweapons ), struct clientdata_s *UNREFERENCED( cd ) ) {
 	DLL_TRACE(pfnUpdateClientData, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet ) {
+int AddToFullPack( struct entity_state_s *UNREFERENCED( state ), int UNREFERENCED( e ), edict_t *UNREFERENCED( ent ), 
+				   edict_t *UNREFERENCED( host ), int UNREFERENCED( hostflags ), int UNREFERENCED( player ), unsigned char *UNREFERENCED( pSet ) ) {
 	DLL_TRACE(pfnAddToFullPack, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, struct edict_s *entity, int playermodelindex, vec3_t player_mins, vec3_t player_maxs ) {
+void CreateBaseline( int UNREFERENCED( player ), int UNREFERENCED( eindex ), struct entity_state_s *UNREFERENCED( baseline ),
+					 struct edict_s *UNREFERENCED( entity ), int UNREFERENCED( playermodelindex ), vec3_t UNREFERENCED( player_mins ), vec3_t UNREFERENCED( player_maxs ) ) {
 	DLL_TRACE(pfnCreateBaseline, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -233,11 +238,11 @@ void RegisterEncoders( void ) {
 	DLL_TRACE(pfnRegisterEncoders, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int GetWeaponData( struct edict_s *player, struct weapon_data_s *info ) {
+int GetWeaponData( struct edict_s *UNREFERENCED( player ), struct weapon_data_s *UNREFERENCED( info ) ) {
 	DLL_TRACE(pfnGetWeaponData, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 1);
 }
-void CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed ) {
+void CmdStart( const edict_t *player, const struct usercmd_s *UNREFERENCED( cmd ), unsigned int random_seed ) {
 	DLL_TRACE(pfnCmdStart, P_PRE, ("name=%s, rand=%d", STRING(player->v.netname), random_seed));
 	RETURN_META(MRES_IGNORED);
 }
@@ -245,11 +250,12 @@ void CmdEnd ( const edict_t *player ) {
 	DLL_TRACE(pfnCmdEnd, P_PRE, ("name=%s", STRING(player->v.netname)));
 	RETURN_META(MRES_IGNORED);
 }
-int ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size ) {
+int ConnectionlessPacket( const struct netadr_s *UNREFERENCED( net_from ), const char *UNREFERENCED( args ), 
+						  char *UNREFERENCED( response_buffer ), int *UNREFERENCED( response_buffer_size ) ) {
 	DLL_TRACE(pfnConnectionlessPacket, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
-int GetHullBounds( int hullnumber, float *mins, float *maxs ) {
+int GetHullBounds( int UNREFERENCED( hullnumber ), float *UNREFERENCED( mins ), float *UNREFERENCED( maxs ) ) {
 	DLL_TRACE(pfnGetHullBounds, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -257,7 +263,7 @@ void CreateInstancedBaselines ( void ) {
 	DLL_TRACE(pfnCreateInstancedBaselines, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int InconsistentFile( const edict_t *player, const char *filename, char *disconnect_message ) {
+int InconsistentFile( const edict_t *player, const char *filename, char *UNREFERENCED( disconnect_message ) ) {
 	DLL_TRACE(pfnInconsistentFile, P_PRE, ("name=%s, file=%s", STRING(player->v.netname), filename));
 	RETURN_META_VALUE(MRES_IGNORED, 0);
 }
@@ -268,7 +274,7 @@ int AllowLagCompensation( void ) {
 
 
 // from SDK ?
-void OnFreeEntPrivateData(edict_t *pEnt) {
+void OnFreeEntPrivateData(edict_t *UNREFERENCED( pEnt )) {
 	NEWDLL_TRACE(pfnOnFreeEntPrivateData, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
@@ -276,7 +282,7 @@ void GameShutdown(void) {
 	NEWDLL_TRACE(pfnGameShutdown, P_PRE, (""));
 	RETURN_META(MRES_IGNORED);
 }
-int ShouldCollide(edict_t *pentTouched, edict_t *pentOther) {
+int ShouldCollide(edict_t *UNREFERENCED( pentTouched ), edict_t *UNREFERENCED( pentOther )) {
 	NEWDLL_TRACE(pfnShouldCollide, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, 1);
 }
