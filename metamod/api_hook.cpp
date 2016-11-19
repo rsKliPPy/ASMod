@@ -439,6 +439,9 @@ END_API_CALLER_FUNC_void( (int, const void*, ...), (p->i1, p->p1, p->str) )
 BEGIN_API_CALLER_FUNC(void, 2pV)
 END_API_CALLER_FUNC_void( (const void*, const void*, ...), (p->p1, p->p2, p->str) )
 
+//Disable unreferenced local variable warning temporarily. - Solokiller
+#pragma warning( push )
+#pragma warning( disable: 4189 )
 //-
 BEGIN_API_CALLER_FUNC(void, void)
 END_API_CALLER_FUNC_void( (void), () )
@@ -451,6 +454,7 @@ END_API_CALLER_FUNC(int, (void), () )
 
 BEGIN_API_CALLER_FUNC(float, void)
 END_API_CALLER_FUNC(float, (void), () )
+#pragma warning( pop )
 
 //-
 BEGIN_API_CALLER_FUNC(float, 2f)
@@ -491,7 +495,8 @@ END_API_CALLER_FUNC_void( (const void*, const void*, int, int, const void*, cons
 
 //-
 BEGIN_API_CALLER_FUNC(void, 2p3fus2uc)
-END_API_CALLER_FUNC_void( (const void*, const void*, float, float, float, unsigned short, unsigned char, unsigned char), (p->p1, p->p2, p->f1, p->f2, p->f3, p->us1, p->uc1, p->uc2) );
+END_API_CALLER_FUNC_void( (const void*, const void*, float, float, float, unsigned short, unsigned char, unsigned char), 
+	(p->p1, p->p2, p->f1, p->f2, p->f3, static_cast<unsigned short>( p->us1 ), static_cast<unsigned char>( p->uc1 ), static_cast<unsigned char>( p->uc2 )) );
 
 //-
 BEGIN_API_CALLER_FUNC(ptr, 2pf)
@@ -603,7 +608,8 @@ END_API_CALLER_FUNC( int, (int, const void*), (p->i1, p->p1) );
 
 //-
 BEGIN_API_CALLER_FUNC(void, ipusf2p2f4i)
-END_API_CALLER_FUNC_void( (int, const void*, unsigned short, float, const void*, const void*, float, float, int, int, int, int), (p->i1, p->p1, p->us1, p->f1, p->p2, p->p3, p->f2, p->f3, p->i2, p->i3, p->i4, p->i5) );
+END_API_CALLER_FUNC_void( (int, const void*, unsigned short, float, const void*, const void*, float, float, int, int, int, int), 
+	(p->i1, p->p1, static_cast<unsigned short>( p->us1 ), p->f1, p->p2, p->p3, p->f2, p->f3, p->i2, p->i3, p->i4, p->i5) );
 
 //-
 BEGIN_API_CALLER_FUNC(void, p)
@@ -646,7 +652,7 @@ END_API_CALLER_FUNC_void( (const void*, int, int, int, int), (p->p1, p->i1, p->i
 
 //-
 BEGIN_API_CALLER_FUNC(void, puc)
-END_API_CALLER_FUNC_void( (const void*, unsigned char), (p->p1, p->uc1) );
+END_API_CALLER_FUNC_void( (const void*, unsigned char), (p->p1, static_cast<unsigned char>( p->uc1 )) );
 
 //-
 BEGIN_API_CALLER_FUNC(void, pf)

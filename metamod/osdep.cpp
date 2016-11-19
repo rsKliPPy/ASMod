@@ -318,7 +318,7 @@ void DLLINTERNAL normalize_pathname(char *path) {
 	META_DEBUG(8, ("normalize: %s", path));
 	for(cp=path; *cp; cp++) {
 		/*if(isupper(*cp))*/
-			*cp=tolower(*cp);
+			*cp=static_cast<char>( tolower(*cp) );
 		
 		if(*cp=='\\')
 			*cp='/';

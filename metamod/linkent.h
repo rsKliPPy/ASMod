@@ -78,13 +78,13 @@ typedef void (*ENTITY_FN) (entvars_t *);
 	void entityName(entvars_t *pev) { \
 		static ENTITY_FN pfnEntity = NULL; \
 		static int missing=0; \
-		char *entStr; \
-		MPlugin *findp; \
+		const char *entStr; \
+		MPlugin *findp = nullptr; \
 		entStr = STRINGIZE(entityName, 0); \
 		if(missing) \
 			return; \
 		if(!pfnEntity) { \
-			if(!(findp=Plugins->find_match(pluginName))) { \
+			if((findp=Plugins->find_match(pluginName)) == nullptr) { \
 				META_WARNING("Couldn't find loaded plugin '%s' for plugin entity '%s'", pluginName, entStr); \
 				missing=1; \
 				return; \

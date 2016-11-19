@@ -363,7 +363,7 @@ static int mutil_MakeRequestID(plid_t /*plid*/) {
 }
 
 //
-static void mutil_GetHookTables(plid_t plid, enginefuncs_t **peng, DLL_FUNCTIONS **pdll, NEW_DLL_FUNCTIONS **pnewdll) {
+static void mutil_GetHookTables(plid_t UNREFERENCED( plid ), enginefuncs_t **peng, DLL_FUNCTIONS **pdll, NEW_DLL_FUNCTIONS **pnewdll) {
 	if (peng)
 		*peng = &meta_engfuncs;
 	if (pdll)
