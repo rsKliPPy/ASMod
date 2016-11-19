@@ -130,24 +130,24 @@ void wd_AlertMessage(ALERT_TYPE atype, char *szFmt, ...) {
 	va_end(ap);
 
 	// Team "...." triggered ...
-	if((cp=buf) && (cp[0]=='T') 
-			&& (cp=strchr(cp+1, '"')) 
-			&& (cp=strchr(cp+1, '"'))
+	if((cp=buf) != nullptr && (cp[0]=='T') 
+			&& (cp=strchr(cp+1, '"')) != nullptr 
+			&& (cp=strchr(cp+1, '"')) != nullptr
 			&& !strncmp(cp+2, "triggered", 9))
 	{
 		cp+=2;
 		found=1;
 	}
 	// World triggered ...
-	else if((cp=buf) && (cp[0]=='W') 
+	else if((cp=buf) != nullptr && (cp[0]=='W') 
 			&& !strncmp(cp+6, "triggered", 9))
 	{
 		cp+=6;
 		found=1;
 	}
 	// "player<444><44444><...>" triggered ...
-	else if((cp=buf) && (cp[0]=='"') 
-			&& (cp=strchr(cp+1, '"')) 
+	else if((cp=buf) != nullptr && (cp[0]=='"') 
+			&& (cp=strchr(cp+1, '"')) != nullptr
 			&& !strncmp(cp+2, "triggered", 9))
 	{
 		cp+=2;
@@ -157,7 +157,7 @@ void wd_AlertMessage(ALERT_TYPE atype, char *szFmt, ...) {
 	if(found) {
 		// past 'triggered "'
 		cp+=11;
-		if((ep=strchr(cp, '"')))
+		if((ep=strchr(cp, '"')) != nullptr)
 			len=ep-cp-1;
 	}
 
