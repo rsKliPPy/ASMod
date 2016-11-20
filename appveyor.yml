@@ -43,8 +43,8 @@
       
     after_build:
       # Zip the binary into a file to compress it and make its name unique
-      - 7z a Metamod-P-%APPVEYOR_REPO_BRANCH%-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\metamod\RelWithDebInfo\metamod.dll
-      - 7z a plugins-%APPVEYOR_REPO_BRANCH%-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\stub_plugin\RelWithDebInfo\stub_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\trace_plugin\RelWithDebInfo\trace_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\wdmisc_plugin\RelWithDebInfo\wdmisc_plugin.dll
+      - 7z a Metamod-P-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\metamod\RelWithDebInfo\metamod.dll
+      - 7z a plugins-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\stub_plugin\RelWithDebInfo\stub_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\trace_plugin\RelWithDebInfo\trace_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\wdmisc_plugin\RelWithDebInfo\wdmisc_plugin.dll
       
     # All builds must be checked.
     matrix:
@@ -54,23 +54,11 @@
     test: off
     
     artifacts:
-        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-debug.zip
-          name: Metamod-P debug
+        - path: build\Metamod-P-%opt%.zip
+          name: Metamod-P %opt%
     
-        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-opt.zip
-          name: Metamod-P opt
-    
-        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-opt-fast.zip
-          name: Metamod-P opt-fast
-    
-        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-debug.zip
-          name: Plugins debug
-    
-        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-opt.zip
-          name: Plugins opt
-    
-        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-opt-fast.zip
-          name: Plugins opt-fast
+        - path: build\plugins-%opt%.zip
+          name: Plugins %opt%
 
     deploy:
           - provider: GitHub
