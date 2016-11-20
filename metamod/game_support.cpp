@@ -4,7 +4,7 @@
 // game_support.cpp - info to recognize different HL mod "games"
 
 /*
- * Copyright (c) 2001-2013 Will Day <willday@hpgx.net>
+ * Copyright (c) 2001-2016 Will Day <willday@hpgx.net>
  *
  *    This file is part of Metamod.
  *

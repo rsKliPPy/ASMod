@@ -4,7 +4,7 @@
 // info_name.h - name, desc, author, etc
 
 /*
- * Copyright (c) 2001-2013 Will Day <willday@hpgx.net>
+ * Copyright (c) 2001-2016 Will Day <willday@hpgx.net>
  *
  *    This file is part of Metamod.
  *
@@ -43,14 +43,14 @@
 #define VAUTHOR		"Will Day"
 #define VURL		"http://www.metamod.org/"
 
-#define COPYRIGHT_YEAR "2013"
+#define COPYRIGHT_YEAR "2016"
 
 // Various strings for the Windows DLL Resources in res_meta.rc
 #define RC_COMMENTS		"Metamod-P is enhanced version of Metamod. Metamod allows running multiple mod-like plugin DLLs, to add functionality or change the behavior of the running HLDS game mod.  See " VURL
 #define RC_DESC			"Metamod-P Half-Life MOD DLL"
 #define RC_FILENAME		"METAMOD.DLL"
 #define RC_INTERNAL		"METAMOD-P"
-#define RC_COPYRIGHT		"Copyright© 2001-" COPYRIGHT_YEAR  " Will Day; 2004-" VPATCH_COPYRIGHT_YEAR " Jussi Kivilinna; GPL licensed"
+#define RC_COPYRIGHT	"Copyright© 2001-" COPYRIGHT_YEAR  " Will Day; 2004-" VPATCH_COPYRIGHT_YEAR " Jussi Kivilinna; 2016-" VPATCH_COPYRIGHT_YEAR " Sam Vanheer; GPL licensed"
 #define RC_LICENSE		"Licensed under the GNU General Public License"
 
 #endif /* INFO_NAME_H */

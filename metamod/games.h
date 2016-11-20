@@ -4,7 +4,7 @@
 // games.h - list of supported game mods and their data
  
 /*
- * Copyright (c) 2001-2013 Will Day <willday@hpgx.net>
+ * Copyright (c) 2001-2016 Will Day <willday@hpgx.net>
  *
  *    This file is part of Metamod.
  *
