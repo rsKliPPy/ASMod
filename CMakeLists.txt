@@ -212,8 +212,16 @@ endif()
 
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GLOBAL_COMPILER_FLAGS}" )
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GLOBAL_COMPILER_FLAGS}" )
+
+if( UNIX )
+	# debugging; halt on warnings
+	set( CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -ggdb3" )
+	set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3" )
+endif()
+
 set( CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ${GLOBAL_COMPILER_FLAGS_RELEASE}" )
 set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${GLOBAL_COMPILER_FLAGS_RELEASE}" )
+
 set( CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} ${GLOBAL_COMPILER_FLAGS_RELEASE}" )
 set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${GLOBAL_COMPILER_FLAGS_RELEASE}" )
 
@@ -230,9 +238,32 @@ set( SHARED_INCLUDE_PATHS
 	${SDK_DIRECTORY}
 )
 
+#The user can select an optimization setting.
+#The Metamod-P library checks this to optimize internal calls.
+set( OPT CACHE STRING "Optimization setting" )
+set_property( CACHE OPT PROPERTY STRINGS debug opt opt-fast )
+
+if( OPT STREQUAL "opt-fast" )
+	set( OPT_TYPE "OPT_TYPE=\"optimized+meta_debug-disabled\"" )
+elseif( OPT STREQUAL "opt" )
+	set( OPT_TYPE "OPT_TYPE=\"optimized\"" )
+elseif( NOT OPT STREQUAL "" )
+	#Any undefined option is treated as debug, except for an empty string because CMake won't fill in the var until it's selected.
+	set( OPT_TYPE "OPT_TYPE=\"debug\"" )
+endif()
+
 #Shared preprocessor definitions.
 set( SHARED_DEFINITIONS
+	${OPT_TYPE}
 )
+
+if( OPT STREQUAL "opt-fast" )
+	#Disable debug output.
+	set( SHARED_DEFINITIONS
+		${SHARED_DEFINITIONS}
+		__BUILD_FAST_METAMOD__
+	)
+endif()
 
 if( WIN32 )
 	#Disable insecure CRT functions warning.
@@ -251,8 +282,6 @@ elseif( UNIX )
 	)
 	
 endif()
-
-MESSAGE( STATUS ${SHARED_DEFINITIONS} )
 
 #Shared library dependencies.
 set( SHARED_LIBRARY_DEPS

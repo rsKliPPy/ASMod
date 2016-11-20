@@ -14,9 +14,7 @@ set( METAMOD_NAME metamod )
 #Set Metamod specific linker flags here.
 set( METAMOD_LINK_FLAGS )
 
-set( METAMOD_P_INTERNALS_USE_REG_PARAMS "0" CACHE BOOL "Whether to optimize internal calls by using registry parameters" )
-
-if( METAMOD_P_INTERNALS_USE_REG_PARAMS )
+if( OPT STREQUAL "opt" OR OPT STREQUAL "opt-fast" )
 	set( __INTERNALS_USE_REGPARAMS__ __INTERNALS_USE_REGPARAMS__ )
 else()
 	set( __INTERNALS_USE_REGPARAMS__ )
