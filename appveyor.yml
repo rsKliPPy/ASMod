@@ -1,0 +1,83 @@
+#based on HLEnhanced appveyor.yml, credits to Shepard for writing this!
+
+-
+    branches:
+        only:
+            # release from master branch
+            - master
+    # Use a VM with VS 2015
+    os: Visual Studio 2015
+    
+    # Only target Windows 32 bits
+    platform: Win32
+    
+    # Build in Release configuration only, with debug info since we'll also be deploying builds.
+    configuration:
+      - RelWithDebInfo
+    
+    # Build with all those possible configurations
+    environment:
+      matrix:
+        - BUILD_RULES: -DOPT:STRING=debug
+          opt: debug
+        - BUILD_RULES: -DOPT:STRING=opt
+          opt: opt
+        - BUILD_RULES: -DOPT:STRING=opt-fast
+          opt: opt-fast
+    
+    before_build:
+      # Appveyor uses CMake 2.8, we require at least 3.6, so make the update
+      - ps: Write-Host "=== (1/4) Downloading CMake 3.6.2 ZIP for Windows 64 bits ===" -foregroundcolor green
+      - ps: wget https://cmake.org/files/v3.6/cmake-3.6.2-win64-x64.zip -OutFile cmake.zip
+      - ps: Write-Host "=== (2/4) Installing CMake ===" -foregroundcolor green
+      - cmd: 7z x cmake.zip -o"." -y
+      # Create the build directory
+      - ps: Write-Host "=== (3/4) Creating build directory ===" -foregroundcolor green
+      - md build
+    
+    build_script:
+      - cd build
+      - ps: Write-Host "===  (4/4) Building ===" -foregroundcolor green
+      - ..\cmake-3.6.2-win64-x64\bin\cmake.exe %BUILD_RULES% -G"Visual Studio 14 2015" ..
+      - msbuild Metamod-P.sln /t:Rebuild /p:Configuration=%CONFIGURATION% /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+      
+    after_build:
+      # Zip the binary into a file to compress it and make its name unique
+      - 7z a Metamod-P-%APPVEYOR_REPO_BRANCH%-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\metamod\RelWithDebInfo\metamod.dll
+      - 7z a plugins-%APPVEYOR_REPO_BRANCH%-%opt%.zip %APPVEYOR_BUILD_FOLDER%\build\stub_plugin\RelWithDebInfo\stub_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\trace_plugin\RelWithDebInfo\trace_plugin.dll %APPVEYOR_BUILD_FOLDER%\build\wdmisc_plugin\RelWithDebInfo\wdmisc_plugin.dll
+      
+    # All builds must be checked.
+    matrix:
+      fast_finish: false
+    
+    # We don't have unit tests
+    test: off
+    
+    artifacts:
+        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-debug.zip
+          name: Metamod-P debug
+    
+        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-opt.zip
+          name: Metamod-P opt
+    
+        - path: build\Metamod-P-%APPVEYOR_REPO_BRANCH%-opt-fast.zip
+          name: Metamod-P opt-fast
+    
+        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-debug.zip
+          name: Plugins debug
+    
+        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-opt.zip
+          name: Plugins opt
+    
+        - path: build\plugins-%APPVEYOR_REPO_BRANCH%-opt-fast.zip
+          name: Plugins opt-fast
+
+    deploy:
+          - provider: GitHub
+            auth_token:
+                secure: vfOUjvsA7vbrYfFOrZh4eAckZ1TZu8izQPbXY8ppDE+sKgvKG5KICFGJkcMvYhxl #Encrypted
+            draft: false
+            prerelease: false
+            on:
+                appveyor_repo_tag: true       # deploy on tag push only
+    
