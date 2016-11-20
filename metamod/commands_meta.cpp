@@ -202,6 +202,9 @@ void DLLINTERNAL cmd_meta_version(void) {
 	META_CONS("%s v%s  %s (%s)", VNAME, VVERSION, VDATE, META_INTERFACE_VERSION);
 	META_CONS("by %s", VAUTHOR);
 	META_CONS("   %s", VURL);
+	META_CONS(" Patch: %s v%d", VPATCH_P_NAME, VPATCH_P_IVERSION );
+	META_CONS(" by %s", VPATCH_P_AUTHOR );
+	META_CONS("    %s", VPATCH_P_WEBSITE );
 	META_CONS(" Patch: %s v%d", VPATCH_NAME, VPATCH_IVERSION);
 	META_CONS(" by %s", VPATCH_AUTHOR);
 	META_CONS("    %s", VPATCH_WEBSITE);

@@ -47,6 +47,12 @@
 #define VPATCH_COPYRIGHT_YEAR   "2016"
 #define VMETA_VERSION		"1.21"
 
+#define VPATCH_P_NAME		"Metamod-P (mm-p)"
+#define VPATCH_P_IVERSION	37
+#define VPATCH_P_VERSION	"37"
+#define VPATCH_P_AUTHOR		"Jussi Kivilinna"
+#define VPATCH_P_WEBSITE	"http://metamod-p.sourceforge.net/"
+
 #define VPATCH_NAME		"Metamod-P (mm-p) CMake"
 #define VPATCH_IVERSION		38
 #define VPATCH_VERSION		"38"

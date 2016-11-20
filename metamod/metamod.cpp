@@ -101,7 +101,8 @@ int DLLINTERNAL metamod_startup(void) {
 
 	META_CONS("   ");
 	META_CONS("   %s version %s Copyright (c) 2001-%s %s", VNAME, VVERSION, COPYRIGHT_YEAR, VAUTHOR);
-	META_CONS("     Patch: %s v%d Copyright (c) 2004-%s %s", VPATCH_NAME, VPATCH_IVERSION, VPATCH_COPYRIGHT_YEAR, VPATCH_AUTHOR);
+	META_CONS("     Patch: %s v%d Copyright (c) 2004-%s %s", VPATCH_P_NAME, VPATCH_P_IVERSION, VPATCH_COPYRIGHT_YEAR, VPATCH_P_AUTHOR );
+	META_CONS("     Patch: %s v%d Copyright (c) 2016-%s %s", VPATCH_NAME, VPATCH_IVERSION, VPATCH_COPYRIGHT_YEAR, VPATCH_AUTHOR );
 	META_CONS("   %s comes with ABSOLUTELY NO WARRANTY; for details type `meta gpl'.", VNAME);
 	META_CONS("   This is free software, and you are welcome to redistribute it");
 	META_CONS("   under certain conditions; type `meta gpl' for details.");
@@ -111,6 +112,8 @@ int DLLINTERNAL metamod_startup(void) {
 	META_LOG("by %s", VAUTHOR);
 	META_LOG("   %s", VURL);
 	META_LOG(" Patch: %s v%d", VPATCH_NAME, VPATCH_IVERSION);
+	META_LOG( " Based on Metamod-P by %s", VPATCH_P_AUTHOR );
+	META_LOG( "    %s", VPATCH_P_WEBSITE );
 	META_LOG(" by %s", VPATCH_AUTHOR);
 	META_LOG("    %s", VPATCH_WEBSITE);
 	META_LOG("compiled: %s %s (%s)", COMPILE_TIME, COMPILE_TZONE, OPT_TYPE);
