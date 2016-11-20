@@ -76,7 +76,7 @@ inline int ENTINDEX(const edict_t *pEdict) {
 // Also, create some nice inlines for engine callback combos.
 
 // Get a setinfo value from a player entity.
-inline char * DLLINTERNAL ENTITY_KEYVALUE(edict_t *entity, char *key) {
+inline char * DLLINTERNAL ENTITY_KEYVALUE(edict_t *entity, const char *key) {
 	return(INFOKEY_VALUE(GET_INFOKEYBUFFER(entity), key));
 }
 
@@ -96,7 +96,7 @@ inline void DLLINTERNAL SET_SERVERINFO(char *key, char *value) {
 }
 
 // Get a "localinfo" value.
-inline char * DLLINTERNAL LOCALINFO(char *key) {
+inline char * DLLINTERNAL LOCALINFO(const char *key) {
 	return(ENTITY_KEYVALUE(NULL, key));
 }
 

@@ -27,6 +27,16 @@
 
 typedef struct cvar_s
 {
+	//Provide a constructor to const cast strings. - Solokiller
+	cvar_s( const char* pszName, const char* pszString, int flags = 0, float flValue = 0, struct cvar_s* pNext = nullptr )
+		: name( const_cast<char*>( pszName ) )
+		, string( const_cast<char*>( pszString ) )
+		, flags( flags )
+		, value( flValue )
+		, next( pNext )
+	{
+	}
+
 	char	*name;
 	char	*string;
 	int		flags;

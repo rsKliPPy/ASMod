@@ -287,7 +287,7 @@ static void mm_GetAimVector(edict_t *ent, float speed, float *rgflReturn) {
 	RETURN_API_void()
 }
 
-static void mm_ServerCommand(char *str) {
+static void mm_ServerCommand(const char *str) {
 	META_ENGINE_HANDLE_void(FN_SERVERCOMMAND, pfnServerCommand, p, (str));
 	RETURN_API_void()
 }
@@ -386,7 +386,7 @@ static void mm_CVarSetString(const char *szVarName, const char *szValue) {
 	RETURN_API_void()
 }
 
-static void mm_AlertMessage(ALERT_TYPE atype, char *szFmt, ...) {
+static void mm_AlertMessage(ALERT_TYPE atype, const char *szFmt, ...) {
 	META_ENGINE_HANDLE_void_varargs(FN_ALERTMESSAGE, pfnAlertMessage, ipV, atype, szFmt);
 	RETURN_API_void()
 }
@@ -635,7 +635,7 @@ static char *mm_GetInfoKeyBuffer(edict_t *e) {
 	META_ENGINE_HANDLE(char *, NULL, FN_GETINFOKEYBUFFER, pfnGetInfoKeyBuffer, p, (e));
 	RETURN_API(char *)
 }
-static char *mm_InfoKeyValue(char *infobuffer, char *key) {
+static char *mm_InfoKeyValue(char *infobuffer, const char *key) {
 	META_ENGINE_HANDLE(char *, NULL, FN_INFOKEYVALUE, pfnInfoKeyValue, 2p, (infobuffer, key));
 	RETURN_API(char *)
 }
@@ -788,7 +788,7 @@ static void mm_GetPlayerStats( const edict_t *pClient, int *ping, int *packet_lo
 	RETURN_API_void()
 }
 
-static void mm_AddServerCommand( char *cmd_name, void (*function) (void) ) {
+static void mm_AddServerCommand( const char *cmd_name, void (*function) (void) ) {
 	META_ENGINE_HANDLE_void(FN_ADDSERVERCOMMAND, pfnAddServerCommand, 2p, (cmd_name, (void*)function));
 	RETURN_API_void()
 }

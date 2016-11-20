@@ -229,7 +229,7 @@ void GetAimVector(edict_t *UNREFERENCED( ent ), float UNREFERENCED( speed ), flo
 	RETURN_META(MRES_IGNORED);
 }
 
-void ServerCommand(char *str) {
+void ServerCommand(const char *str) {
 	ENGINE_TRACE(pfnServerCommand, P_PRE, ("cmd=%s", str));
 	RETURN_META(MRES_IGNORED);
 }
@@ -339,8 +339,8 @@ void CVarSetString(const char *szVarName, const char *szValue) {
 	RETURN_META(MRES_IGNORED);
 }
 
-void AlertMessage(ALERT_TYPE atype, char *szFmt, ...) {
-	char *astr;
+void AlertMessage(ALERT_TYPE atype, const char *szFmt, ...) {
+	const char *astr;
 	va_list ap;
 	char buf[MAX_STRBUF_LEN];
 	switch(atype) {
@@ -617,7 +617,7 @@ char *GetInfoKeyBuffer(edict_t *UNREFERENCED( e )) {
 	ENGINE_TRACE(pfnGetInfoKeyBuffer, P_PRE, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-char *InfoKeyValue(char *UNREFERENCED( infobuffer ), char *key) {
+char *InfoKeyValue(char *UNREFERENCED( infobuffer ), const char *key) {
 	ENGINE_TRACE(pfnInfoKeyValue, P_PRE, ("key=%s", key));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
@@ -788,7 +788,7 @@ void GetPlayerStats( const edict_t *pClient, int *UNREFERENCED( ping ), int *UNR
 	RETURN_META(MRES_IGNORED);
 }
 
-void AddServerCommand( char *cmd_name, void (*UNREFERENCED( function ) ) (void) ) {
+void AddServerCommand( const char *cmd_name, void (*UNREFERENCED( function ) ) (void) ) {
 	ENGINE_TRACE(pfnAddServerCommand, P_PRE, ("cmd=%s", cmd_name));
 	RETURN_META(MRES_IGNORED);
 }

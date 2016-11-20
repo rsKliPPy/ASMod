@@ -143,7 +143,7 @@ typedef struct enginefuncs_s
 	const char *(*pfnTraceTexture)			(edict_t *pTextureEntity, const float *v1, const float *v2 );
 	void		(*pfnTraceSphere)			(const float *v1, const float *v2, int fNoMonsters, float radius, edict_t *pentToSkip, TraceResult *ptr);
 	void		(*pfnGetAimVector)			(edict_t* ent, float speed, float *rgflReturn);
-	void		(*pfnServerCommand)			(char* str);
+	void		(*pfnServerCommand)			(const char* str);
 	void		(*pfnServerExecute)			(void);
 	void		(*pfnClientCommand)			(edict_t* pEdict, char* szFmt, ...);
 	void		(*pfnParticleEffect)		(const float *org, const float *dir, float color, float count);
@@ -165,7 +165,7 @@ typedef struct enginefuncs_s
 	const char*	(*pfnCVarGetString)			(const char *szVarName);
 	void		(*pfnCVarSetFloat)			(const char *szVarName, float flValue);
 	void		(*pfnCVarSetString)			(const char *szVarName, const char *szValue);
-	void		(*pfnAlertMessage)			(ALERT_TYPE atype, char *szFmt, ...);
+	void		(*pfnAlertMessage)			(ALERT_TYPE atype, const char *szFmt, ...);
 #ifdef HLSDK_3_2_OLD_EIFACE
 	void		(*pfnEngineFprintf)			(FILE *pfile, char *szFmt, ...);
 	void*		(*pfnPvAllocEntPrivateData)	(edict_t *pEdict, long cb);
@@ -225,7 +225,7 @@ typedef struct enginefuncs_s
 	void		(*pfnRunPlayerMove)			(edict_t *fakeclient, const float *viewangles, float forwardmove, float sidemove, float upmove, unsigned short buttons, byte impulse, byte msec );
 	int			(*pfnNumberOfEntities)		(void);
 	char*		(*pfnGetInfoKeyBuffer)		(edict_t *e);	// passing in NULL gets the serverinfo
-	char*		(*pfnInfoKeyValue)			(char *infobuffer, char *key);
+	char*		(*pfnInfoKeyValue)			(char *infobuffer, const char *key);
 	void		(*pfnSetKeyValue)			(char *infobuffer, char *key, char *value);
 	void		(*pfnSetClientKeyValue)		(int clientIndex, char *infobuffer, char *key, char *value);
 	int			(*pfnIsMapValid)			(char *filename);
@@ -271,7 +271,7 @@ typedef struct enginefuncs_s
 
 	void		(*pfnGetPlayerStats)		( const edict_t *pClient, int *ping, int *packet_loss );
 
-	void		(*pfnAddServerCommand)		( char *cmd_name, void (*function) (void) );
+	void		(*pfnAddServerCommand)		( const char *cmd_name, void (*function) (void) );
 
 	// For voice communications, set which clients hear eachother.
 	// NOTE: these functions take player entity indices (starting at 1).

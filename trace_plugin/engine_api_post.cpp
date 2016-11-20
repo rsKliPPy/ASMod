@@ -233,7 +233,7 @@ void GetAimVector_Post(edict_t *UNREFERENCED( ent ), float UNREFERENCED( speed )
 	RETURN_META(MRES_IGNORED);
 }
 
-void ServerCommand_Post(char *UNREFERENCED( str ) ) {
+void ServerCommand_Post(const char *UNREFERENCED( str ) ) {
 	// trace output in Pre
 	ENGINE_TRACE(pfnServerCommand, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
@@ -337,7 +337,7 @@ void CVarSetString_Post(const char *UNREFERENCED( szVarName ), const char *UNREF
 	RETURN_META(MRES_IGNORED);
 }
 
-void AlertMessage_Post(ALERT_TYPE UNREFERENCED( atype ), char *UNREFERENCED( szFmt ), ...) {
+void AlertMessage_Post(ALERT_TYPE UNREFERENCED( atype ), const char *UNREFERENCED( szFmt ), ...) {
 	// trace output in Pre
 	ENGINE_TRACE(pfnAlertMessage, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
@@ -586,7 +586,7 @@ char *GetInfoKeyBuffer_Post(edict_t *UNREFERENCED( e ) ) {
 	ENGINE_TRACE(pfnGetInfoKeyBuffer, P_POST, (""));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
 }
-char *InfoKeyValue_Post(char *UNREFERENCED( infobuffer ), char *UNREFERENCED( key ) ) {
+char *InfoKeyValue_Post(char *UNREFERENCED( infobuffer ), const char *UNREFERENCED( key ) ) {
 	ENGINE_TRACE(pfnInfoKeyValue, P_POST, ("value=%s", 
 				META_RESULT_ORIG_RET(char *)));
 	RETURN_META_VALUE(MRES_IGNORED, NULL);
@@ -769,7 +769,7 @@ void GetPlayerStats_Post( const edict_t *pClient, int *ping, int *packet_loss ) 
 	RETURN_META(MRES_IGNORED);
 }
 
-void AddServerCommand_Post( char *UNREFERENCED( cmd_name ), void (*UNREFERENCED( function )) (void) ) {
+void AddServerCommand_Post( const char *UNREFERENCED( cmd_name ), void (*UNREFERENCED( function )) (void) ) {
 	// trace output in Pre
 	ENGINE_TRACE(pfnAddServerCommand, P_POST, (""));
 	RETURN_META(MRES_IGNORED);
