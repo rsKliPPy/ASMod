@@ -14,6 +14,14 @@ set( METAMOD_NAME metamod )
 #Set Metamod specific linker flags here.
 set( METAMOD_LINK_FLAGS )
 
+if( WIN32 AND NOT MSVC )
+	#Cygwin & MinGW require this. See the file itself for the reason.
+	set( METAMOD_LINK_FLAGS
+		${METAMOD_LINK_FLAGS}
+		-Xlinker --script -Xlinker ${CMAKE_CURRENT_SOURCE_DIR}/i386pe.merge
+	)
+endif()
+
 if( OPT STREQUAL "opt" OR OPT STREQUAL "opt-fast" )
 	set( __INTERNALS_USE_REGPARAMS__ __INTERNALS_USE_REGPARAMS__ )
 else()

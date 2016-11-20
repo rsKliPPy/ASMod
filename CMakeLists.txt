@@ -198,6 +198,13 @@ if( WIN32 )
 	#Omit frame pointers.
 	#Precise floating point operations.
 	set( GLOBAL_COMPILER_FLAGS_RELEASE "/O2 /Oy /fp:precise" )
+	
+	if( CYGWIN )
+		set( GLOBAL_COMPILER_FLAGS 
+			${GLOBAL_COMPILER_FLAGS}
+			-mno-cygwin
+		)
+	endif()
 else()
 	#All warnings.
 	#No unknown pragma directives.
@@ -307,6 +314,13 @@ if( WIN32 )
 			${SHARED_LINKER_FLAGS}
 			-Xlinker --add-stdcall-alias
 		)
+		
+		if( CYGWIN )
+		set( SHARED_LINKER_FLAGS
+			${SHARED_LINKER_FLAGS}
+			-L/lib/w32api
+		)
+		endif()
 	endif()
 else()
 	set( SHARED_LINKER_FLAGS
