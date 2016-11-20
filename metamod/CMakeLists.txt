@@ -14,6 +14,22 @@ set( METAMOD_NAME metamod )
 #Set Metamod specific linker flags here.
 set( METAMOD_LINK_FLAGS )
 
+set( METAMOD_P_INTERNALS_USE_REG_PARAMS "0" CACHE BOOL "Whether to optimize internal calls by using registry parameters" )
+
+if( METAMOD_P_INTERNALS_USE_REG_PARAMS )
+	set( __INTERNALS_USE_REGPARAMS__ __INTERNALS_USE_REGPARAMS__ )
+else()
+	set( __INTERNALS_USE_REGPARAMS__ )
+endif()
+
+set( METAMOD_P_PERFORMANCE_MONITORING "0" CACHE BOOL "Whether to enable performance monitoring code" )
+
+if( METAMOD_P_PERFORMANCE_MONITORING )
+	set( META_PERFMON META_PERFMON )
+else()
+	set( META_PERFMON )
+endif()
+
 #Add Metamod sources here, or using add_subdirectory.
 add_sources(
 	api_hook.cpp
@@ -123,10 +139,13 @@ target_include_directories( ${METAMOD_NAME} PRIVATE
 )
 
 #Define preprocessor symbols here.
+#__METAMOD_BUILD__ for our special eiface.h
 target_compile_definitions( ${METAMOD_NAME} PRIVATE
 	${SHARED_DEFINITIONS}
 	METAMOD_EXPORTS
 	__METAMOD_BUILD__
+	${__INTERNALS_USE_REGPARAMS__}
+	${META_PERFMON}
 )
 
 #Add library dependencies here.

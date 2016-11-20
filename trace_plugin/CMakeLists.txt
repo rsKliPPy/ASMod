@@ -15,9 +15,9 @@ set( PLUGIN_NAME trace_plugin )
 #Set plugin specific linker flags here.
 set( PLUGIN_LINK_FLAGS )
 
-set( HLSDK_3_2_OLD_EIFACE "0" CACHE BOOL "Whether to use the old SDK interface for the Trace plugin" )
+set( TRACE_HLSDK_3_2_OLD_EIFACE "0" CACHE BOOL "Whether to use the old SDK interface for the Trace plugin" )
 
-if( HLSDK_3_2_OLD_EIFACE )
+if( TRACE_HLSDK_3_2_OLD_EIFACE )
 	set( HLSDK_3_2_OLD_EIFACE "HLSDK_3_2_OLD_EIFACE" )
 else()
 	set( HLSDK_3_2_OLD_EIFACE )
