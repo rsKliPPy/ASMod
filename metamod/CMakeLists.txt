@@ -50,6 +50,7 @@ add_sources(
 	engine_api.h
 	engine_t.h
 	games.h
+	GiveFnptrsToDllExport.h
 	game_autodetect.cpp
 	game_autodetect.h
 	game_support.cpp

@@ -32,6 +32,8 @@
 #include <h_export.h>
 #include <meta_api.h>
 
+#include "GiveFnptrsToDllExport.h"
+
 //! Holds engine functionality callbacks
 enginefuncs_t g_engfuncs;
 globalvars_t  *gpGlobals;

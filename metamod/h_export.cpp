@@ -36,6 +36,8 @@
 #include "log_meta.h"		// META_DEV, etc
 #include "osdep_p.h"		// get_module_handle_of_memptr
 
+#include "GiveFnptrsToDllExport.h"
+
 // From SDK dlls/h_export.cpp:
 
 #ifdef _WIN32
@@ -65,12 +67,6 @@ void _init(void) {
 void _fini(void) {
 	// called before dlclose() returns
 }
-#endif
-
-// Fixed MSVC compiling, by Nikolay "The Storm" Baklicharov.
-#if defined(_WIN32) && !defined(__GNUC__) && defined (_MSC_VER)
-	#pragma comment(linker, "/EXPORT:GiveFnptrsToDll=_GiveFnptrsToDll@8,@1")
-	#pragma comment(linker, "/SECTION:.data,RW")
 #endif
 
 //! Holds engine functionality callbacks

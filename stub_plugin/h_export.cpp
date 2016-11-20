@@ -29,6 +29,8 @@
 
 #include <h_export.h>
 
+#include "GiveFnptrsToDllExport.h"
+
 // From SDK dlls/h_export.cpp:
 
 //! Holds engine functionality callbacks
