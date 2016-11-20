@@ -78,6 +78,7 @@ script:
 
 after_success:
   - zip Metamod-P-${OPT}-Linux.zip metamod/metamod.so
+  - zip Plugins-${OPT}-Linux.zip stub_plugin/stub_plugin.so trace_plugin/trace_plugin.so wdmisc_plugin/wdmisc_plugin.so
   
 notifications:
   email: false
@@ -88,6 +89,7 @@ deploy:
     secure: PJVhs6xh1B7HY9Faba2H1J4OiVrf75gKzQ2BrNbayt+po+GK/pTe34Lk5SenXkF/KQRre6H2V6xpdScLClXpaYdjIG8VhGOAFjJ8iWt766gqXacfkOpTeHV49kK8EOfzA08CeavJFqTrB+0CNmPn/kXTeOaP1eiGX2Me2hMTyQxZODf0lTNrodSpgSQdQeaI2Nch1MpKRR3qxWHMJIPwAn+ceOLKdSD8uurg8JI7Ot2CHuCxakppQ7DLc0rYuxBHMv7g1ZxymyApRi71GhEHPWLJNEa2pZgwoC4c6Zm4/6ZdHW8wNnksdDYcz/5EeGWevvelTPxUbFPEdZMOuxqvbwsFpPiUSjSatjCCYBESEF1PczK7b2gKiKMbwPQJF4iNHl3VPdvfla/fJCBOGvHBdcX5l5fk4f+tQpw/UBDq4KtdGBf0zpSKwTDOkJhkPC8rHNAWL3sH1qviGCRGBx9Bv0k88iFzvosvtcwovmV7yqGLqlPK1MuDixr7OEhjI/X7RXbKmRZ/HaK9BIydnH03PKpWJwcO2bNUQQoYFXnT6G/uOYT1+riDXi+sj9UWV8OH/niKezLEgFz36jnnh+manibJUE1jKGmZuwBMMVP/gJh6lQ8HYixi/0DOkJX+tSDQ8jr0zFJk4RRis1h5AVx4JaKASAhual755UFmyS/MzMU=
   file:
     - "Metamod-P-${OPT}-Linux.zip"
+    - "Plugins-${OPT}-Linux.zip"
   skip_cleanup: true
   on:
     tags: true
