@@ -44,6 +44,8 @@
 
 #include "sdk_util.h"		// UTIL_LogPrintf, etc
 
+#include "info_name.h"
+
 // Must provide at least one of these..
 static META_FUNCTIONS gMetaFunctionTable = {
 	NULL,			// pfnGetEntityAPI				HL SDK; called before game DLL
@@ -59,14 +61,14 @@ static META_FUNCTIONS gMetaFunctionTable = {
 // Description of plugin
 plugin_info_t Plugin_info = {
 	META_INTERFACE_VERSION,	// ifvers
-	"minimal stub",	// name
-	"1.17",	// version
-	"2003/11/15",	// date
-	"Will Day <willday@metamod.org>",	// author
-	"http://www.metamod.org/",	// url
-	"STUB",	// logtag, all caps please
-	PT_ANYTIME,	// (when) loadable
-	PT_ANYPAUSE,	// (when) unloadable
+	VNAME,			// name
+	"1.0 Alpha",	// version
+	VDATE,			// date
+	VAUTHOR,		// author
+	VURL,			// url
+	VLOGTAG,		// logtag
+	PT_STARTUP,	// (when) loadable
+	PT_NEVER,	// (when) unloadable
 };
 
 // Global vars from metamod:
