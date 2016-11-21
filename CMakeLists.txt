@@ -238,6 +238,12 @@ set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${GLOBAL_
 #C++14 support
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 
+#Shared source files.
+set( SHARED_SOURCES
+	${SDK_DIRECTORY}/public/interface.h
+	${SDK_DIRECTORY}/public/interface.cpp
+)
+
 #Shared include paths.
 set( SHARED_INCLUDE_PATHS
 	${CMAKE_SOURCE_DIR}/metamod

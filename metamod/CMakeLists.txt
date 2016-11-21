@@ -38,6 +38,7 @@ endif()
 
 #Add Metamod sources here, or using add_subdirectory.
 add_sources(
+	${SHARED_SOURCES}
 	api_hook.cpp
 	api_hook.h
 	api_info.cpp
