@@ -1,15 +1,15 @@
 ###################################################
 #                                                 #
 #                                                 #
-#   Metamod-P Stub plugin CMake build file        #
+#   AngelScript Mod main loader CMake build file  #
 #                                                 #
 #                                                 #
 ###################################################
 
 #Change this to match your plugin's directory structure.
-set( PLUGIN_LIB_DIR ${META_BASE_DIRECTORY}/stub_plugin/dlls )
+set( PLUGIN_LIB_DIR ${META_BASE_DIRECTORY}/ASMod/dlls )
 
-set( PLUGIN_NAME stub_plugin )
+set( PLUGIN_NAME ASMod )
 
 #Set plugin specific linker flags here.
 set( PLUGIN_LINK_FLAGS )

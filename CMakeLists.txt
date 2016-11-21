@@ -342,7 +342,7 @@ else()
 endif()
 
 #Add subdirectories here.
-add_subdirectory( stub_plugin )
+add_subdirectory( ASMod )
 
 #
 #ASMod project end.
