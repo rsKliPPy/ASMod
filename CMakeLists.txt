@@ -259,9 +259,18 @@ elseif( NOT OPT STREQUAL "" )
 	set( OPT_TYPE "OPT_TYPE=\"debug\"" )
 endif()
 
+set( HLSDK_3_2_OLD_EIFACE "0" CACHE BOOL "Whether to use the old SDK interface for the Trace plugin" )
+
+if( HLSDK_3_2_OLD_EIFACE )
+	set( HLSDK_3_2_OLD_EIFACE_FLAG "HLSDK_3_2_OLD_EIFACE" )
+else()
+	set( HLSDK_3_2_OLD_EIFACE_FLAG )
+endif()
+
 #Shared preprocessor definitions.
 set( SHARED_DEFINITIONS
 	${OPT_TYPE}
+	${HLSDK_3_2_OLD_EIFACE_FLAG}
 )
 
 if( OPT STREQUAL "opt-fast" )

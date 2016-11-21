@@ -234,8 +234,13 @@ meta_enginefuncs_t::meta_enginefuncs_t(
 	void             (*_pfnCVarSetFloat)                    (const char*, float),
 	void             (*_pfnCVarSetString)                   (const char*, const char*),
 	void             (*_pfnAlertMessage)                    (ALERT_TYPE, const char*, ...),
-	void             (*_pfnEngineFprintf)                   (void*, char*, ...),
-	void*            (*_pfnPvAllocEntPrivateData)           (edict_t*, int32),
+#ifdef HLSDK_3_2_OLD_EIFACE
+	void             (*_pfnEngineFprintf)                   (FILE*, char*, ...),
+	void*            (*_pfnPvAllocEntPrivateData)           (edict_t*, long),
+#else
+	void             (*_pfnEngineFprintf)                   ( void*, char*, ...),
+	void*            (*_pfnPvAllocEntPrivateData)           ( edict_t*, int32),
+#endif
 	void*            (*_pfnPvEntPrivateData)                (edict_t*),
 	void             (*_pfnFreeEntPrivateData)              (edict_t*),
 	const char*      (*_pfnSzFromIndex)                     (int),
@@ -250,8 +255,13 @@ meta_enginefuncs_t::meta_enginefuncs_t(
 	int              (*_pfnRegUserMsg)                      (const char*, int),
 	void             (*_pfnAnimationAutomove)               (const edict_t*, float),
 	void             (*_pfnGetBonePosition)                 (const edict_t*, int, float*, float* ),
+#ifdef HLSDK_3_2_OLD_EIFACE
+	unsigned long    (*_pfnFunctionFromName)                (const char*),
+	const char*      (*_pfnNameForFunction)                 (unsigned long),
+#else
 	uint32           (*_pfnFunctionFromName)                (const char*),
 	const char*      (*_pfnNameForFunction)                 (uint32),
+#endif
 	void             (*_pfnClientPrintf)                    (edict_t*, PRINT_TYPE, const char*),
 	void             (*_pfnServerPrint)                     (const char*),
 	const char*      (*_pfnCmd_Args)                        (void),
@@ -262,7 +272,11 @@ meta_enginefuncs_t::meta_enginefuncs_t(
 	void             (*_pfnCRC32_ProcessBuffer)             (CRC32_t*, void*, int),
 	void             (*_pfnCRC32_ProcessByte)               (CRC32_t*, unsigned char),
 	CRC32_t          (*_pfnCRC32_Final)                     (CRC32_t),
-	int32            (*_pfnRandomLong)                      (int32,  int32),
+#ifdef HLSDK_3_2_OLD_EIFACE
+	long             (*_pfnRandomLong)                      (long, long),
+#else
+	int32            (*_pfnRandomLong)                      (int32, int32),
+#endif
 	float            (*_pfnRandomFloat)                     (float, float),
 	void             (*_pfnSetView)                         (const edict_t*, const edict_t*),
 	float            (*_pfnTime)                            (void),
