@@ -189,7 +189,7 @@ set( META_BASE_DIRECTORY ${GAME_DIRECTORY}/addons )
 set( SDK_DIRECTORY "${CMAKE_SOURCE_DIR}/hlsdk" CACHE PATH "Path to the Half-Life SDK directory" )
 
 #Set global compiler settings.
-if( WIN32 )
+if( MSVC )
 	#Warning level 4. Wall shows warnings in standard headers so we can't compile if that's enabled.
 	#Treat warnings as errors.
 	set( GLOBAL_COMPILER_FLAGS "/W4 /WX" )
@@ -198,13 +198,6 @@ if( WIN32 )
 	#Omit frame pointers.
 	#Precise floating point operations.
 	set( GLOBAL_COMPILER_FLAGS_RELEASE "/O2 /Oy /fp:precise" )
-	
-	if( CYGWIN )
-		set( GLOBAL_COMPILER_FLAGS 
-			${GLOBAL_COMPILER_FLAGS}
-			-mno-cygwin
-		)
-	endif()
 else()
 	#All warnings.
 	#No unknown pragma directives.
@@ -215,6 +208,14 @@ else()
 	#Omit frame pointers.
 	#Precise floating point operations.
 	set( GLOBAL_COMPILER_FLAGS_RELEASE "-O2 -fomit-frame-pointer -ffast-math" )
+	
+	#Cygwin uses GCC style settings.
+	if( CYGWIN )
+		set( GLOBAL_COMPILER_FLAGS 
+			${GLOBAL_COMPILER_FLAGS}
+			-mno-cygwin
+		)
+	endif()
 endif()
 
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GLOBAL_COMPILER_FLAGS}" )
