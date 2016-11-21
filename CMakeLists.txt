@@ -1,7 +1,7 @@
 ###################################################
 #                                                 #
 #                                                 #
-#   Metamod-P CMake build file                    #
+#   AngelScript Mod CMake build file              #
 #   Based on the Metamod-P Makefile               #
 #   Written by Sam "Solokiller" Vanheer           #
 #                                                 #
@@ -139,10 +139,10 @@ macro(configure_msvc_runtime)
 endmacro()
 
 #
-#Metamod-P project begin.
+#ASMod project begin.
 #
 
-project( Metamod-P )
+project( ASMod )
 
 #Needs static CRT to avoid alloc issues.
 set( MSVC_RUNTIME "static" )
@@ -342,11 +342,8 @@ else()
 endif()
 
 #Add subdirectories here.
-add_subdirectory( metamod )
 add_subdirectory( stub_plugin )
-add_subdirectory( trace_plugin )
-add_subdirectory( wdmisc_plugin )
 
 #
-#Metamod-P project end.
+#ASMod project end.
 #
