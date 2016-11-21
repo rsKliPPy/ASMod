@@ -192,7 +192,9 @@ set( SDK_DIRECTORY "${CMAKE_SOURCE_DIR}/hlsdk" CACHE PATH "Path to the Half-Life
 if( MSVC )
 	#Warning level 4. Wall shows warnings in standard headers so we can't compile if that's enabled.
 	#Treat warnings as errors.
-	set( GLOBAL_COMPILER_FLAGS "/W4 /WX" )
+	#When using the v140_xp toolset or newer, static local variables are initialized using thread safe initialization. This won't work on XP so we have to disable this behavior.
+	#See https://connect.microsoft.com/VisualStudio/Feedback/Details/1941836 for more information.
+	set( GLOBAL_COMPILER_FLAGS "/W4 /WX /Zc:threadSafeInit-" )
 	
 	#Optimize for speed.
 	#Omit frame pointers.
