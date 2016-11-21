@@ -17,8 +17,8 @@ set( PLUGIN_LINK_FLAGS )
 #Add plugin sources here, or using add_subdirectory.
 add_sources(
 	dllapi.cpp
-	dummy.h
-	dummy.rc
+	ASMod.h
+	ASMod.rc
 	engine_api.cpp
 	h_export.cpp
 	info_name.h
