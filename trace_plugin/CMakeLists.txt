@@ -17,6 +17,7 @@ set( PLUGIN_LINK_FLAGS )
 
 #Add plugin sources here, or using add_subdirectory.
 add_sources(
+	${SHARED_SOURCES}
 	api_info.cpp
 	dllapi.cpp
 	dllapi_post.h

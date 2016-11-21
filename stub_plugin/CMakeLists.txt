@@ -16,6 +16,7 @@ set( PLUGIN_LINK_FLAGS )
 
 #Add plugin sources here, or using add_subdirectory.
 add_sources(
+	${SHARED_SOURCES}
 	dllapi.cpp
 	dummy.h
 	dummy.rc

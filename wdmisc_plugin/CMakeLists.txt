@@ -17,6 +17,7 @@ set( PLUGIN_LINK_FLAGS )
 
 #Add plugin sources here, or using add_subdirectory.
 add_sources(
+	${SHARED_SOURCES}
 	dll_plugin.h
 	dll_plugin.cpp
 	engine_api.cpp
