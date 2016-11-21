@@ -249,6 +249,7 @@ set( SHARED_INCLUDE_PATHS
 	${CMAKE_SOURCE_DIR}/metamod
 	${SDK_DIRECTORY}/engine
 	${SDK_DIRECTORY}/common
+	${SDK_DIRECTORY}/public
 	${SDK_DIRECTORY}/pm_shared
 	${SDK_DIRECTORY}/dlls
 	${SDK_DIRECTORY}
