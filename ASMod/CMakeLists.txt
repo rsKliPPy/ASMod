@@ -44,6 +44,7 @@ add_library( ${PLUGIN_NAME} SHARED ${PREP_SRCS} )
 target_include_directories( ${PLUGIN_NAME} PRIVATE
 	.
 	${SHARED_INCLUDE_PATHS}
+	${CMAKE_SOURCE_DIR}/external/Angelscript/include
 )
 
 #Define preprocessor symbols here.
@@ -52,8 +53,13 @@ target_compile_definitions( ${PLUGIN_NAME} PRIVATE
 )
 
 #Add library dependencies here.
+find_library( Angelscript Angelscript PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptUtils AngelscriptUtils PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+
 target_link_libraries( ${PLUGIN_NAME}
 	${SHARED_LIBRARY_DEPS}
+	${ANGELSCRIPT}
+	${ANGELSCRIPTUTILS}
 )
 
 #If the user wants automatic deployment to a game directory, set the output directory paths.
