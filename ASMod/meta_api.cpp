@@ -46,6 +46,8 @@
 
 #include "info_name.h"
 
+#include "CASMod.h"
+
 // Must provide at least one of these..
 static META_FUNCTIONS gMetaFunctionTable = {
 	NULL,			// pfnGetEntityAPI				HL SDK; called before game DLL
@@ -68,7 +70,7 @@ plugin_info_t Plugin_info = {
 	VURL,			// url
 	VLOGTAG,		// logtag
 	PT_STARTUP,	// (when) loadable
-	PT_NEVER,	// (when) unloadable
+	PT_STARTUP,	// (when) unloadable
 };
 
 // Global vars from metamod:
@@ -110,7 +112,8 @@ C_DLLEXPORT int Meta_Attach(PLUG_LOADTIME /* now */,
 	}
 	memcpy(pFunctionTable, &gMetaFunctionTable, sizeof(META_FUNCTIONS));
 	gpGamedllFuncs=pGamedllFuncs;
-	return(TRUE);
+
+	return g_ASMod.Initialize();
 }
 
 // Metamod detaching plugin from the server.
@@ -119,5 +122,7 @@ C_DLLEXPORT int Meta_Attach(PLUG_LOADTIME /* now */,
 C_DLLEXPORT int Meta_Detach(PLUG_LOADTIME /* now */, 
 		PL_UNLOAD_REASON /* reason */) 
 {
+	g_ASMod.Shutdown();
+
 	return(TRUE);
 }

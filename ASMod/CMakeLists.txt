@@ -20,6 +20,10 @@ add_sources(
 	dllapi.cpp
 	ASMod.h
 	ASMod.rc
+	CASMod.h
+	CASMod.cpp
+	CASModModuleInfo.h
+	CASModModuleInfo.cpp
 	engine_api.cpp
 	h_export.cpp
 	info_name.h
