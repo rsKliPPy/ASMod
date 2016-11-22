@@ -20,6 +20,8 @@
 #define ASMOD_MODULES_DIR "modules"
 #define ASMOD_MODULES_FILENAME "Modules.txt"
 
+#define ASMOD_SCSUPPORT_FILENAME "SvenCoopSupport.txt"
+
 class CASModModuleInfo;
 class IASLogger;
 
@@ -27,6 +29,27 @@ class CASMod final
 {
 private:
 	using Modules_t = std::vector<CASModModuleInfo>;
+
+	/**
+	*	Environment types.
+	*/
+	enum class EnvType
+	{
+		/**
+		*	Query game for environment, fall back to local if none found.
+		*/
+		DEFAULT = 0,
+
+		/**
+		*	Always use local environment.
+		*/
+		LOCAL,
+
+		/**
+		*	Special support for Sven Co-op: hack into the server and acquire required environment manually.
+		*/
+		SVENCOOP_HACK,
+	};
 
 public:
 	CASMod() = default;
@@ -36,6 +59,11 @@ public:
 	*	The loader directory. This is the base directory for this Metamod plugin, and where we'll start to look for configs & modules.
 	*/
 	const char* GetLoaderDirectory() const { return m_szLoaderDir; }
+
+	/**
+	*	@return The game's module handle.
+	*/
+	CSysModule* GetGameModuleHandle() { return m_hGame; }
 
 	bool Initialize();
 
@@ -127,7 +155,7 @@ private:
 	Modules_t m_Modules;
 
 	//Configuration
-	bool m_bForceLocalEnvironment = false;
+	EnvType m_EnvType = EnvType::DEFAULT;
 
 private:
 	CASMod( const CASMod& ) = delete;

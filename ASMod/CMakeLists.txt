@@ -18,6 +18,7 @@ set( PLUGIN_LINK_FLAGS )
 add_sources(
 	${SHARED_SOURCES}
 	dllapi.cpp
+	dllapi_post.cpp
 	ASMod.h
 	ASMod.rc
 	CASMod.h
@@ -29,6 +30,8 @@ add_sources(
 	info_name.h
 	meta_api.cpp
 	sdk_util.cpp
+	SvenCoopSupport.h
+	SvenCoopSupport.cpp
 )
 
 #TODO: shouldn't be copy pasting this into the repository - Solokiller

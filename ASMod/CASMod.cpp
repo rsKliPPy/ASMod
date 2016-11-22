@@ -9,6 +9,8 @@
 
 #include "keyvalues/Keyvalues.h"
 
+#include "SvenCoopSupport.h"
+
 #include "CASMod.h"
 
 CASMod g_ASMod;
@@ -73,6 +75,8 @@ bool CASMod::Initialize()
 
 	if( !LoadModules() )
 		return false;
+
+	LOG_MESSAGE( PLID, "Finished initializing AngelScript Mod Loader" );
 
 	return true;
 }
@@ -213,7 +217,14 @@ void CASMod::ApplyConfig( kv::Block& block )
 
 		if( pForceLocalEnvironment )
 		{
-			m_bForceLocalEnvironment = atoi( pForceLocalEnvironment->GetValue().CStr() ) != 0;
+			m_EnvType = atoi( pForceLocalEnvironment->GetValue().CStr() ) != 0 ? EnvType::LOCAL : EnvType::DEFAULT;
+		}
+
+		auto pSvenCoopHack = pLoader->FindFirstChild<kv::KV>( "svenCoopHack" );
+
+		if( pSvenCoopHack )
+		{
+			m_EnvType = atoi( pSvenCoopHack->GetValue().CStr() ) != 0 ? EnvType::SVENCOOP_HACK : m_EnvType;
 		}
 	}
 }
@@ -263,7 +274,7 @@ bool CASMod::SetupEnvironment()
 
 	m_bUsingLocalLogger = false;
 
-	if( !m_bForceLocalEnvironment )
+	if( m_EnvType == EnvType::DEFAULT )
 	{
 		if( HasGameFactory() )
 		{
@@ -288,9 +299,40 @@ bool CASMod::SetupEnvironment()
 			LOG_MESSAGE( PLID, "Game didn't provide a factory" );
 		}
 	}
-	else
+	else if( m_EnvType == EnvType::LOCAL )
 	{
 		LOG_MESSAGE( PLID, "Forcing use of local environment" );
+	}
+	else if( m_EnvType == EnvType::SVENCOOP_HACK )
+	{
+		LOG_MESSAGE( PLID, "Using Sven Co-op hack to acquire environment" );
+
+		sc::CSvenCoopSupport support( ASMOD_SCSUPPORT_FILENAME );
+
+		if( !support.IsConfigLoaded() )
+		{
+			LOG_ERROR( PLID, "Couldn't load Sven Co-op Support config, aborting" );
+			return false;
+		}
+
+		asIScriptEngine* pScriptEngine = nullptr;
+
+		if( !support.GetScriptEngine( pScriptEngine ) )
+		{
+			LOG_ERROR( PLID, "Couldn't get script engine from Sven Co-op, aborting" );
+			return false;
+		}
+
+		m_Environment.SetAllocFunc( support.GetAllocFunc() );
+		m_Environment.SetFreeFunc( support.GetFreeFunc() );
+		m_Environment.SetScriptEngine( pScriptEngine );
+
+		bGotEnvironment = true;
+	}
+	else
+	{
+		LOG_ERROR( PLID, "Unknown environment setting" );
+		return false;
 	}
 
 	if( !bGotEnvironment )
