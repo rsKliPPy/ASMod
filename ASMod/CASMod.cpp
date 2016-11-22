@@ -297,12 +297,14 @@ bool CASMod::SetupEnvironment()
 	{
 		LOG_MESSAGE( PLID, "Using local environment" );
 
+		m_Environment.SetAllocFunc( ::operator new );
+		m_Environment.SetFreeFunc( ::operator delete );
+
+		asSetGlobalMemoryFunctions( m_Environment.GetAllocFunc(), m_Environment.GetFreeFunc() );
+
 		m_Environment.SetScriptEngine( asCreateScriptEngine() );
 
 		//TODO: configure engine.
-
-		m_Environment.SetAllocFunc( ::operator new );
-		m_Environment.SetFreeFunc( ::operator delete );
 
 		m_bUsingLocalEnvironment = true;
 	}
