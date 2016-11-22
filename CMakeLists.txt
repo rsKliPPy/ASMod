@@ -351,6 +351,7 @@ endif()
 
 #Add subdirectories here.
 add_subdirectory( ASMod )
+add_subdirectory( modules )
 
 #
 #ASMod project end.

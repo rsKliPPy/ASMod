@@ -1,0 +1,6 @@
+#ifndef STUB_MODULE_MODULE_H
+#define STUB_MODULE_MODULE_H
+
+
+
+#endif //STUB_MODULE_MODULE_H
