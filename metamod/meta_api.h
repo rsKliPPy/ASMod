@@ -108,10 +108,10 @@ typedef struct {
 } META_FUNCTIONS;
 
 // Pair of function tables provided by game DLL.
-typedef struct {
+struct gamedll_funcs_t {
 	DLL_FUNCTIONS *dllapi_table;
 	NEW_DLL_FUNCTIONS *newapi_table;
-} gamedll_funcs_t;
+};
 
 // Declared in plugin; referenced in macros.
 extern gamedll_funcs_t *gpGamedllFuncs DLLHIDDEN;

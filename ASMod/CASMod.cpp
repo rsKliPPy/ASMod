@@ -122,6 +122,14 @@ void CASMod::Shutdown()
 	}
 }
 
+void CASMod::Think()
+{
+	for( auto& module : m_Modules )
+	{
+		module.GetModule()->Think();
+	}
+}
+
 IBaseInterface* CASMod::QueryGameFactory( const char* pszName, int* pReturnCode )
 {
 	IBaseInterface* pInstance = nullptr;
@@ -520,7 +528,13 @@ bool CASMod::LoadModuleFromBlock( kv::Block& block )
 		return false;
 	}
 
-	if( !info.GetModule()->Initialize( GetEnvironment() ) )
+	if( !info.GetModule()->Initialize( 
+		GetEnvironment(), 
+		&g_engfuncs,
+		gpGlobals,
+		gpMetaGlobals, 
+		gpGamedllFuncs, 
+		gpMetaUtilFuncs ) )
 	{
 		LOG_ERROR( PLID, "Failed to initialize module \"%s\"", info.GetModule()->GetName() );
 		return false;

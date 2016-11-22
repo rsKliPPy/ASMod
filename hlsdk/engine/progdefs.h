@@ -20,7 +20,7 @@
 #endif /* not __MINGW32__ */
 #endif
 
-typedef struct
+struct globalvars_t
 {	
 	float		time;
 	float		frametime;
@@ -54,7 +54,7 @@ typedef struct
 
 	void		*pSaveData;
 	vec3_t		vecLandmarkOffset;
-} globalvars_t;
+};
 
 
 typedef struct entvars_s

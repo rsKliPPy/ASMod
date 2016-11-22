@@ -11,7 +11,12 @@ public:
 
 	const char* GetName() const override final;
 
-	bool Initialize( IASEnvironment& environment ) override;
+	bool Initialize( IASEnvironment& environment,
+					 enginefuncs_t* pEngineFuncs,
+					 globalvars_t* pGlobals,
+					 meta_globals_t* pMetaGlobals,
+					 gamedll_funcs_t* pGamedllFuncs,
+					 mutil_funcs_t* pMetaUtilFuncs ) override;
 
 	bool Shutdown() override;
 

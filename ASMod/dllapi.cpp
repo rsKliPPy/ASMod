@@ -37,6 +37,15 @@
 #include <dllapi.h>
 #include <meta_api.h>
 
+#include "CASMod.h"
+
+static void StartFrame()
+{
+	g_ASMod.Think();
+
+	RETURN_META( MRES_IGNORED );
+}
+
 static DLL_FUNCTIONS gFunctionTable = 
 {
 	NULL,					// pfnGameInit
@@ -69,7 +78,7 @@ static DLL_FUNCTIONS gFunctionTable =
 	NULL,					// pfnPlayerPreThink
 	NULL,					// pfnPlayerPostThink
 
-	NULL,					// pfnStartFrame
+	&StartFrame,			// pfnStartFrame
 	NULL,					// pfnParmsNewLevel
 	NULL,					// pfnParmsChangeLevel
 

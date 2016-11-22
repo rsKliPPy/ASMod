@@ -40,7 +40,7 @@ target_include_directories( ${MODULE_NAME} PRIVATE
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/shared
-	${CMAKE_SOURCE_DIR}/external/Angelscript/include
+	${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/include
 )
 
 #Define preprocessor symbols here.

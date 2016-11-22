@@ -69,6 +69,8 @@ public:
 
 	void Shutdown();
 
+	void Think();
+
 	/**
 	*	@return Whether the game factory is available.
 	*/
