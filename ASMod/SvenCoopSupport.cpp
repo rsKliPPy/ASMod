@@ -76,6 +76,8 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 		return;
 	}
 
+	//Don't need to parse out addresses for Linux.
+#ifdef WIN32
 	auto pPlatform = pConfig->FindFirstChild<kv::Block>( PLATFORM );
 
 	if( !pPlatform )
@@ -101,27 +103,33 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 		return;
 	}
 
-#ifdef WIN32
 	//On Windows, the module handle is also the base address. - Solokiller
 	const auto offset = reinterpret_cast<ptrdiff_t>( g_ASMod.GetGameModuleHandle() );
-#else
-	//
-	Dl_info dli;
-	memset( &dli, 0, sizeof( dli ) );
-	//Map a known function so we can get the base address.
-	if( !dladdr( gpGamedllFuncs->dllapi_table->pfnGameInit, &dli ) )
-	{
-		LOG_ERROR( PLID, "Couldn't dladdr pfnGameInit" );
-		return false;
-	}
-
-	const auto offset = reinterpret_cast<ptrdiff_t>( dli.dli_fbase );
-#endif
 
 	//Now offset the addresses to their actual address.
 	m_AllocFunc = OffsetAddress( m_AllocFunc, offset );
 	m_FreeFunc = OffsetAddress( m_FreeFunc, offset );
 	m_ManagerFunc = OffsetAddress( m_ManagerFunc, offset );
+#else
+	//On Linux we can just dlsym what we need.
+	//These are actually operator new and operator delete
+	m_AllocFunc = reinterpret_cast<asALLOCFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_Znwj" ) );
+	m_FreeFunc = reinterpret_cast<asFREEFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_ZdlPv" ) );
+	m_ManagerFunc = reinterpret_cast<ManagerFunc>( dlsym( g_ASMod.GetGameModuleHandle(), "_ZN16CASServerManager11GetInstanceEv" ) );
+#endif
+
+	if( !m_AllocFunc ||
+		!m_FreeFunc ||
+		!m_ManagerFunc )
+	{
+		LOG_ERROR( PLID, "Failed to retrieve one or more required functions" );
+		return;
+	}
+
+	//Test code for the allocator functions.
+	//int* pData = reinterpret_cast<int*>( m_AllocFunc( sizeof( int ) ) );
+	//*pData = 1234;
+	//m_FreeFunc( pData );
 
 	LOG_MESSAGE( PLID, "Successfully parsed Sven Co-op support config" );
 

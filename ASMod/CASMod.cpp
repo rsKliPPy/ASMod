@@ -327,6 +327,8 @@ bool CASMod::SetupEnvironment()
 		m_Environment.SetFreeFunc( support.GetFreeFunc() );
 		m_Environment.SetScriptEngine( pScriptEngine );
 
+		LOG_MESSAGE( PLID, "Acquired Sven Co-op Angelscript engine at %p", pScriptEngine );
+
 		bGotEnvironment = true;
 	}
 	else
@@ -359,6 +361,12 @@ bool CASMod::SetupEnvironment()
 		char szLogPath[ PATH_MAX ];
 
 		const auto result = snprintf( szLogPath, sizeof( szLogPath ), "%s/logs/LASMod", gpMetaUtilFuncs->pfnGetGameInfo( PLID, GINFO_GAMEDIR ) );
+
+		if( !PrintfSuccess( result, sizeof( szLogPath ) ) )
+		{
+			//Fallback: log dir in main game directory.
+			UTIL_SafeStrncpy( szLogPath, "logs/LASMod", sizeof( szLogPath ) );
+		}
 
 		m_pLogger = new CASFileLogger( szLogPath, CASFileLogger::Flag::USE_DATESTAMP | CASFileLogger::Flag::USE_TIMESTAMP | CASFileLogger::Flag::OUTPUT_LOG_LEVEL );
 
