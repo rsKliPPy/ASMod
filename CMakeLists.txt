@@ -320,6 +320,7 @@ if( NOT WIN32 )
 		dl
 		m
 		-static-libgcc
+		-static-libstdc++
 	)	
 endif()
 
