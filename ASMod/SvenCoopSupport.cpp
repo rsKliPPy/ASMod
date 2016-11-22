@@ -88,9 +88,11 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 
 	auto pAlloc = pPlatform->FindFirstChild<kv::KV>( "allocFunc" );
 	auto pFree = pPlatform->FindFirstChild<kv::KV>( "freeFunc" );
+	auto pArrayAlloc = pPlatform->FindFirstChild<kv::KV>( "arrayAllocFunc" );
+	auto pArrayFree = pPlatform->FindFirstChild<kv::KV>( "arrayFreeFunc" );
 	auto pManager = pPlatform->FindFirstChild<kv::KV>( "managerFunc" );
 
-	if( !pAlloc || !pFree || !pManager )
+	if( !pAlloc || !pFree || !pArrayAlloc || !pArrayFree || !pManager )
 	{
 		LOG_ERROR( PLID, "Missing function address for one or more required functions" );
 		return;
@@ -98,6 +100,8 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 
 	if( !ParseAddress( pAlloc->GetValue().CStr(), pAlloc->GetKey().CStr(), m_AllocFunc ) ||
 		!ParseAddress( pFree->GetValue().CStr(), pFree->GetKey().CStr(), m_FreeFunc ) ||
+		!ParseAddress( pArrayAlloc->GetValue().CStr(), pArrayAlloc->GetKey().CStr(), m_ArrayAllocFunc ) ||
+		!ParseAddress( pArrayFree->GetValue().CStr(), pArrayFree->GetKey().CStr(), m_ArrayFreeFunc ) ||
 		!ParseAddress( pManager->GetValue().CStr(), pManager->GetKey().CStr(), m_ManagerFunc ) )
 	{
 		return;
@@ -109,17 +113,27 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 	//Now offset the addresses to their actual address.
 	m_AllocFunc = OffsetAddress( m_AllocFunc, offset );
 	m_FreeFunc = OffsetAddress( m_FreeFunc, offset );
+
+	m_ArrayAllocFunc = OffsetAddress( m_ArrayAllocFunc, offset );
+	m_ArrayFreeFunc = OffsetAddress( m_ArrayFreeFunc, offset );
+
 	m_ManagerFunc = OffsetAddress( m_ManagerFunc, offset );
 #else
 	//On Linux we can just dlsym what we need.
 	//These are actually operator new and operator delete
 	m_AllocFunc = reinterpret_cast<asALLOCFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_Znwj" ) );
 	m_FreeFunc = reinterpret_cast<asFREEFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_ZdlPv" ) );
+	//These are actually operator new[] and operator delete[]
+	m_AllocFunc = reinterpret_cast<asALLOCFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_Znaj" ) );
+	m_FreeFunc = reinterpret_cast<asFREEFUNC_t>( dlsym( g_ASMod.GetGameModuleHandle(), "_ZdaPv" ) );
+
 	m_ManagerFunc = reinterpret_cast<ManagerFunc>( dlsym( g_ASMod.GetGameModuleHandle(), "_ZN16CASServerManager11GetInstanceEv" ) );
 #endif
 
 	if( !m_AllocFunc ||
 		!m_FreeFunc ||
+		!m_ArrayAllocFunc ||
+		!m_ArrayFreeFunc ||
 		!m_ManagerFunc )
 	{
 		LOG_ERROR( PLID, "Failed to retrieve one or more required functions" );
@@ -127,9 +141,16 @@ CSvenCoopSupport::CSvenCoopSupport( const char* pszConfigFilename )
 	}
 
 	//Test code for the allocator functions.
-	//int* pData = reinterpret_cast<int*>( m_AllocFunc( sizeof( int ) ) );
-	//*pData = 1234;
-	//m_FreeFunc( pData );
+	/*
+	int* pData = reinterpret_cast<int*>( m_AllocFunc( sizeof( int ) ) );
+	*pData = 1234;
+	m_FreeFunc( pData );
+
+	int* pArrayData = reinterpret_cast<int*>( m_ArrayAllocFunc( sizeof( int ) * 2 ) );
+	*pArrayData = 1234;
+	pArrayData[ 1 ] = 5678;
+	m_ArrayFreeFunc( pArrayData );
+	*/
 
 	LOG_MESSAGE( PLID, "Successfully parsed Sven Co-op support config" );
 

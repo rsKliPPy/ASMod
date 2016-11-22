@@ -30,6 +30,16 @@ public:
 	virtual asFREEFUNC_t GetFreeFunc() = 0;
 
 	/**
+	*	@return The array allocation function.
+	*/
+	virtual asALLOCFUNC_t GetArrayAllocFunc() = 0;
+
+	/**
+	*	@return The array free function.
+	*/
+	virtual asFREEFUNC_t GetArrayFreeFunc() = 0;
+
+	/**
 	*	@return The logger provided by the environment. Can be null.
 	*/
 	virtual IASLogger* GetLogger() = 0;

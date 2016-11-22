@@ -325,6 +325,8 @@ bool CASMod::SetupEnvironment()
 
 		m_Environment.SetAllocFunc( support.GetAllocFunc() );
 		m_Environment.SetFreeFunc( support.GetFreeFunc() );
+		m_Environment.SetArrayAllocFunc( support.GetArrayAllocFunc() );
+		m_Environment.SetArrayFreeFunc( support.GetArrayFreeFunc() );
 		m_Environment.SetScriptEngine( pScriptEngine );
 
 		LOG_MESSAGE( PLID, "Acquired Sven Co-op Angelscript engine at %p", pScriptEngine );
@@ -343,6 +345,8 @@ bool CASMod::SetupEnvironment()
 
 		m_Environment.SetAllocFunc( ::operator new );
 		m_Environment.SetFreeFunc( ::operator delete );
+		m_Environment.SetArrayAllocFunc( ::operator new[] );
+		m_Environment.SetArrayFreeFunc( ::operator delete[] );
 
 		asSetGlobalMemoryFunctions( m_Environment.GetAllocFunc(), m_Environment.GetFreeFunc() );
 

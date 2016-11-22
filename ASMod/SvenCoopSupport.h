@@ -59,6 +59,10 @@ public:
 
 	asFREEFUNC_t GetFreeFunc() { return m_FreeFunc; }
 
+	asALLOCFUNC_t GetArrayAllocFunc() { return m_ArrayAllocFunc; }
+
+	asFREEFUNC_t GetArrayFreeFunc() { return m_ArrayFreeFunc; }
+
 	/**
 	*	Queries the server for its script engine.
 	*	@param[ out ] pOutScriptEngine Pointer to the script engine, or null if it could not be retrieved.
@@ -71,6 +75,8 @@ private:
 
 	asALLOCFUNC_t m_AllocFunc = nullptr;
 	asFREEFUNC_t m_FreeFunc = nullptr;
+	asALLOCFUNC_t m_ArrayAllocFunc = nullptr;
+	asFREEFUNC_t m_ArrayFreeFunc = nullptr;
 	ManagerFunc m_ManagerFunc = nullptr;
 
 private:
