@@ -27,6 +27,11 @@ add_sources(
 	sdk_util.cpp
 )
 
+#TODO: shouldn't be copy pasting this into the repository - Solokiller
+add_subdirectory( ${CMAKE_SOURCE_DIR}/common common )
+add_subdirectory( ${CMAKE_SOURCE_DIR}/keyvalues keyvalues )
+add_subdirectory( ${CMAKE_SOURCE_DIR}/utility utility )
+
 #Add public plugin headers here, if any.
 #add_includes(
 #
@@ -44,6 +49,9 @@ add_library( ${PLUGIN_NAME} SHARED ${PREP_SRCS} )
 target_include_directories( ${PLUGIN_NAME} PRIVATE
 	.
 	${SHARED_INCLUDE_PATHS}
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/common
+	${CMAKE_SOURCE_DIR}/shared
 	${CMAKE_SOURCE_DIR}/external/Angelscript/include
 )
 
