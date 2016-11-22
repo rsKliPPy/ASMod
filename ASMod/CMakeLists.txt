@@ -53,13 +53,17 @@ target_compile_definitions( ${PLUGIN_NAME} PRIVATE
 )
 
 #Add library dependencies here.
-find_library( Angelscript Angelscript PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
-find_library( AngelscriptUtils AngelscriptUtils PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptLib Angelscript PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptUtilsLib AngelscriptUtils PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptLibD Angelscriptd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptUtilsLibD AngelscriptUtilsd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
 
 target_link_libraries( ${PLUGIN_NAME}
 	${SHARED_LIBRARY_DEPS}
-	${ANGELSCRIPT}
-	${ANGELSCRIPTUTILS}
+	optimized ${AngelscriptLib}
+	optimized ${AngelscriptUtilsLib}
+	debug ${AngelscriptLibD}
+	debug ${AngelscriptUtilsLibD}
 )
 
 #If the user wants automatic deployment to a game directory, set the output directory paths.
