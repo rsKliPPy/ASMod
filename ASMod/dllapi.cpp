@@ -46,6 +46,16 @@ static void StartFrame()
 	RETURN_META( MRES_IGNORED );
 }
 
+static void GameShutdown_Post()
+{
+	//Note: It is very important that we shut down after the game has shut down because Sven Co-op will free its Angelscript engine at that time.
+	//This will access data that is located in our modules, which are no longer loaded after this call.
+	// - Solokiller
+	g_ASMod.Shutdown();
+
+	RETURN_META( MRES_IGNORED );
+}
+
 static DLL_FUNCTIONS gFunctionTable = 
 {
 	NULL,					// pfnGameInit
@@ -125,4 +135,32 @@ C_DLLEXPORT int GetEntityAPI2(DLL_FUNCTIONS *pFunctionTable,
 	}
 	memcpy(pFunctionTable, &gFunctionTable, sizeof(DLL_FUNCTIONS));
 	return(TRUE);
+}
+
+static NEW_DLL_FUNCTIONS gNewFunctionTable_Post =
+{
+	NULL,				//! pfnOnFreeEntPrivateData()	Called right before the object's memory is freed.  Calls its destructor.
+	GameShutdown_Post,	//! pfnGameShutdown()
+	NULL,				//! pfnShouldCollide()
+						// Added 2005-08-11 (no SDK update)
+	NULL,				//! pfnCvarValue()
+						// Added 2005-11-22 (no SDK update)
+	NULL,				//! pfnCvarValue2()
+};
+
+C_DLLEXPORT int GetNewDLLFunctions_Post( NEW_DLL_FUNCTIONS *pNewFunctionTable, int *interfaceVersion )
+{
+	LOG_DEVELOPER( PLID, "called: GetNewDLLFunctions_Post; version=%d", *interfaceVersion );
+	if( !pNewFunctionTable ) {
+		LOG_ERROR( PLID, "GetNewDLLFunctions_Post called with null pNewFunctionTable" );
+		return( FALSE );
+	}
+	else if( *interfaceVersion != NEW_DLL_FUNCTIONS_VERSION ) {
+		LOG_ERROR( PLID, "GetNewDLLFunctions_Post version mismatch; requested=%d ours=%d", *interfaceVersion, NEW_DLL_FUNCTIONS_VERSION );
+		//! Tell engine what version we had, so it can figure out who is out of date.
+		*interfaceVersion = NEW_DLL_FUNCTIONS_VERSION;
+		return( FALSE );
+	}
+	memcpy( pNewFunctionTable, &gNewFunctionTable_Post, sizeof( NEW_DLL_FUNCTIONS ) );
+	return TRUE;
 }
