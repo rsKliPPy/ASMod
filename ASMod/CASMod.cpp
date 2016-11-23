@@ -536,15 +536,7 @@ bool CASMod::LoadModuleFromBlock( kv::Block& block )
 		Sys_GetFactoryThis()
 	};
 
-	if( !info.GetModule()->Initialize( 
-		factories,
-		ARRAYSIZE( factories ),
-		GetEnvironment(), 
-		&g_engfuncs,
-		gpGlobals,
-		gpMetaGlobals, 
-		gpGamedllFuncs, 
-		gpMetaUtilFuncs ) )
+	if( !info.GetModule()->Initialize( factories, ARRAYSIZE( factories ) ) )
 	{
 		LOG_ERROR( PLID, "Failed to initialize module \"%s\"", info.GetModule()->GetName() );
 		return false;

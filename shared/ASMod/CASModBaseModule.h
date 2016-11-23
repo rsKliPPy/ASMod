@@ -3,6 +3,8 @@
 
 #include "IASModModule.h"
 
+class IASMod;
+
 /**
 *	Base class for ASMod modules.
 */
@@ -12,13 +14,7 @@ public:
 	CASModBaseModule() = default;
 	virtual ~CASModBaseModule() = default;
 
-	bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
-					 IASEnvironment& environment,
-					 enginefuncs_t* pEngineFuncs,
-					 globalvars_t* pGlobals,
-					 meta_globals_t* pMetaGlobals,
-					 gamedll_funcs_t* pGamedllFuncs,
-					 mutil_funcs_t* pMetaUtilFuncs ) override;
+	bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories ) override;
 
 	bool Shutdown() override;
 
@@ -28,6 +24,7 @@ public:
 	IASEnvironment& GetEnvironment() { return *m_pEnvironment; }
 
 protected:
+	IASMod* m_pASMod = nullptr;
 	IASEnvironment* m_pEnvironment = nullptr;
 
 private:

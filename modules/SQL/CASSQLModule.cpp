@@ -32,23 +32,10 @@ const char* CASSQLModule::GetName() const
 	return "SQL";
 }
 
-bool CASSQLModule::Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
-							   IASEnvironment& environment,
-							   enginefuncs_t* pEngineFuncs,
-							   globalvars_t* pGlobals,
-							   meta_globals_t* pMetaGlobals,
-							   gamedll_funcs_t* pGamedllFuncs,
-							   mutil_funcs_t* pMetaUtilFuncs )
+bool CASSQLModule::Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories )
 {
-	if( !BaseClass::Initialize( pFactories, uiNumFactories, environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
+	if( !BaseClass::Initialize( pFactories, uiNumFactories ) )
 		return false;
-
-	memcpy( &g_engfuncs, pEngineFuncs, sizeof( g_engfuncs ) );
-	gpGlobals = pGlobals;
-
-	gpMetaGlobals = pMetaGlobals;
-	gpGamedllFuncs = pGamedllFuncs;
-	gpMetaUtilFuncs = pMetaUtilFuncs;
 
 	CVAR_REGISTER( &as_mysql_config );
 

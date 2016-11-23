@@ -24,16 +24,11 @@ public:
 
 	/**
 	*	Initializes the module.
-	*	@param environment Environment.
+	*	@param pFactories Pointer to an array of factories.
+	*	@param uiNumFactories Number of factories in the array pointer to by pFactories.
 	*	@return Whether initialization succeeded.
 	*/
-	virtual bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
-							 IASEnvironment& environment,
-							 enginefuncs_t* pEngineFuncs,
-							 globalvars_t* pGlobals,
-							 meta_globals_t* pMetaGlobals,
-							 gamedll_funcs_t* pGamedllFuncs,
-							 mutil_funcs_t* pMetaUtilFuncs ) = 0;
+	virtual bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories ) = 0;
 
 	/**
 	*	Shuts down the module.

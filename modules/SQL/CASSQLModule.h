@@ -15,13 +15,7 @@ public:
 
 	const char* GetName() const override final;
 
-	bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
-					 IASEnvironment& environment,
-					 enginefuncs_t* pEngineFuncs,
-					 globalvars_t* pGlobals,
-					 meta_globals_t* pMetaGlobals,
-					 gamedll_funcs_t* pGamedllFuncs,
-					 mutil_funcs_t* pMetaUtilFuncs ) override;
+	bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories ) override;
 
 	bool Shutdown() override;
 
