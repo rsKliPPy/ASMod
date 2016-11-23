@@ -30,6 +30,19 @@ set( SHARED_MODULE_DEFS
 	AS_STRING_OBJNAME="${AS_STRING_OBJNAME}"
 )
 
+#Common library dependencies
+find_library( AngelscriptLib Angelscript PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptUtilsLib AngelscriptUtils PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptLibD Angelscriptd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+find_library( AngelscriptUtilsLibD AngelscriptUtilsd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
+
+set( SHARED_MODULE_LIBRARIES
+	optimized ${AngelscriptLib}
+	optimized ${AngelscriptUtilsLib}
+	debug ${AngelscriptLibD}
+	debug ${AngelscriptUtilsLibD}
+)
+
 add_subdirectory( stub_module )
 add_subdirectory( SCInterop )
 add_subdirectory( SQL )

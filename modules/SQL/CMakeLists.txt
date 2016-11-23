@@ -60,11 +60,6 @@ target_compile_definitions( ${MODULE_NAME} PRIVATE
 )
 
 #Add library dependencies here.
-find_library( AngelscriptLib Angelscript PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
-find_library( AngelscriptUtilsLib AngelscriptUtils PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
-find_library( AngelscriptLibD Angelscriptd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
-find_library( AngelscriptUtilsLibD AngelscriptUtilsd PATHS ${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/lib )
-
 find_library( ASSQL AngelscriptSQL PATHS ${CMAKE_SOURCE_DIR}/external/ASSQL/lib/ )
 find_library( ASSQLD AngelscriptSQLd PATHS ${CMAKE_SOURCE_DIR}/external/ASSQL/lib/ )
 
@@ -86,10 +81,7 @@ endif()
 
 target_link_libraries( ${MODULE_NAME}
 	${SHARED_LIBRARY_DEPS}
-	optimized ${AngelscriptLib}
-	optimized ${AngelscriptUtilsLib}
-	debug ${AngelscriptLibD}
-	debug ${AngelscriptUtilsLibD}
+	${SHARED_MODULE_LIBRARIES}
 	"${SQLITE3}"
 	optimized "${MARIADB}"
 	debug "${MARIADBD}"
