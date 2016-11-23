@@ -228,15 +228,17 @@ void RegisterScriptHLSQL( asIScriptEngine& engine )
 	engine.SetDefaultNamespace( "SQL" );
 
 	engine.RegisterGlobalFunction(
-		"SQLiteConnection@ CreateSQLiteConnection(const string& in szDatabase)",
+		"SQLiteConnection@ CreateSQLiteConnection(const " AS_STRING_OBJNAME "& in szDatabase)",
 		asFUNCTION( HLCreateSQLiteConnection ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
-		"MySQLConnection@ CreateMySQLConnection(const string& in szHost, const string& in szUser, const string& in szPassword, const string& in szDatabase = \"\")",
+		"MySQLConnection@ CreateMySQLConnection("
+		"const " AS_STRING_OBJNAME "& in szHost, const " AS_STRING_OBJNAME "& in szUser,"
+		"const " AS_STRING_OBJNAME "& in szPassword, const " AS_STRING_OBJNAME "& in szDatabase = \"\")",
 		asFUNCTION( HLCreateMySQLConnection ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
-		"MySQLConnection@ CreateMySQLConnectionWithDefaults(const string& in szDatabase = \"\")",
+		"MySQLConnection@ CreateMySQLConnectionWithDefaults(const " AS_STRING_OBJNAME "& in szDatabase = \"\")",
 		asFUNCTION( HLCreateMySQLConnectionWithDefaults ), asCALL_CDECL );
 
 	engine.SetDefaultNamespace( szOldNS.c_str() );
