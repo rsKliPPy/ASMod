@@ -1,10 +1,14 @@
 #ifndef STUB_MODULE_CASSTUBMODULE_H
 #define STUB_MODULE_CASSTUBMODULE_H
 
-#include "ASMod/IASModModule.h"
+#include "ASMod/CASModBaseModule.h"
 
-class CASStubModule : public IASModModule
+class CASStubModule : public CASModBaseModule
 {
+public:
+	typedef CASStubModule ThisClass;
+	typedef CASModBaseModule BaseClass;
+
 public:
 	CASStubModule() = default;
 	~CASStubModule() = default;
@@ -19,14 +23,6 @@ public:
 					 mutil_funcs_t* pMetaUtilFuncs ) override;
 
 	bool Shutdown() override;
-
-	/**
-	*	@return The environment.
-	*/
-	IASEnvironment& GetEnvironment() { return *m_pEnvironment; }
-
-private:
-	IASEnvironment* m_pEnvironment = nullptr;
 
 private:
 	CASStubModule( const CASStubModule& ) = delete;

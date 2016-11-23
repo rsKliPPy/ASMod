@@ -1,6 +1,13 @@
-#ifndef STUB_MODULE_MODULE_H
-#define STUB_MODULE_MODULE_H
+#ifndef SQL_MODULE_H
+#define SQL_MODULE_H
+
+class CASModBaseModule;
+
+/**
+*	This module's instance.
+*/
+extern CASModBaseModule* g_pModule;
 
 extern cvar_t as_mysql_config;
 
-#endif //STUB_MODULE_MODULE_H
+#endif //SQL_MODULE_H

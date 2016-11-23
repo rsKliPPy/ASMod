@@ -23,7 +23,8 @@ bool CASStubModule::Initialize( IASEnvironment& environment,
 								gamedll_funcs_t* pGamedllFuncs,
 								mutil_funcs_t* pMetaUtilFuncs )
 {
-	m_pEnvironment = &environment;
+	if( !BaseClass::Initialize( environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
+		return false;
 
 	memcpy( &g_engfuncs, pEngineFuncs, sizeof( g_engfuncs ) );
 	gpGlobals = pGlobals;
@@ -41,7 +42,5 @@ bool CASStubModule::Shutdown()
 {
 	m_pEnvironment->GetLogger()->Diagnostic( "Shutting down module\n" );
 
-	m_pEnvironment = nullptr;
-
-	return true;
+	return BaseClass::Shutdown();
 }

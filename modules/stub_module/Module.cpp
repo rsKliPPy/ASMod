@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+CASModBaseModule* g_pModule = nullptr;
+
 meta_globals_t *gpMetaGlobals;		// metamod globals
 gamedll_funcs_t *gpGamedllFuncs;	// gameDLL function tables
 mutil_funcs_t *gpMetaUtilFuncs;		// metamod utility functions

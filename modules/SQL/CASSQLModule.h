@@ -1,10 +1,14 @@
 #ifndef STUB_MODULE_CASSQLMODULE_H
 #define STUB_MODULE_CASSQLMODULE_H
 
-#include "ASMod/IASModModule.h"
+#include "ASMod/CASModBaseModule.h"
 
-class CASSQLModule : public IASModModule
+class CASSQLModule : public CASModBaseModule
 {
+public:
+	typedef CASSQLModule ThisClass;
+	typedef CASModBaseModule BaseClass;
+
 public:
 	CASSQLModule() = default;
 	~CASSQLModule() = default;
@@ -20,15 +24,7 @@ public:
 
 	bool Shutdown() override;
 
-	/**
-	*	@return The environment.
-	*/
-	IASEnvironment& GetEnvironment() { return *m_pEnvironment; }
-
 	void Think() override;
-
-private:
-	IASEnvironment* m_pEnvironment = nullptr;
 
 private:
 	CASSQLModule( const CASSQLModule& ) = delete;
