@@ -18,14 +18,7 @@
 
 #include "CASSQLModule.h"
 
-CASSQLModule g_Module;
-
-EXPOSE_SINGLE_INTERFACE_GLOBALVAR( CASSQLModule, IASModModule, IASMODMODULE_NAME, g_Module );
-
-std::string CStringToStdString( const CString* pszString )
-{
-	return pszString->CStr();
-}
+EXPOSE_SINGLE_INTERFACE( CASSQLModule, IASModModule, IASMODMODULE_NAME );
 
 const char* CASSQLModule::GetName() const
 {
@@ -41,11 +34,6 @@ bool CASSQLModule::Initialize( const CreateInterfaceFn* pFactories, const size_t
 
 	auto& scriptEngine = *m_pEnvironment->GetScriptEngine();
 
-	//TODO: temporary
-	RegisterStdString( &scriptEngine, false );
-	scriptEngine.RegisterObjectMethod(
-		"string", "stdString opImplConv() const", asFUNCTION( CStringToStdString ), asCALL_CDECL_OBJFIRST );
-	//TODO: SQL api uses std::string, should be CString
 	RegisterScriptHLSQL( scriptEngine );
 
 	return true;

@@ -1,5 +1,5 @@
-#ifndef STUB_MODULE_CASSQLMODULE_H
-#define STUB_MODULE_CASSQLMODULE_H
+#ifndef SQL_CASSQLMODULE_H
+#define SQL_CASSQLMODULE_H
 
 #include "ASMod/CASModBaseModule.h"
 
@@ -26,4 +26,4 @@ private:
 	CASSQLModule& operator=( const CASSQLModule& ) = delete;
 };
 
-#endif //STUB_MODULE_CASSQLMODULE_H
+#endif //SQL_CASSQLMODULE_H
