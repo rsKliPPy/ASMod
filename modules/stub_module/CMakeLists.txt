@@ -17,6 +17,7 @@ set( MODULE_LINK_FLAGS )
 #Add module sources here, or using add_subdirectory.
 add_sources(
 	${SHARED_SOURCES}
+	${SHARED_MODULE_SOURCES}
 	CASStubModule.h
 	CASStubModule.cpp
 	Module.h
@@ -37,15 +38,13 @@ add_library( ${MODULE_NAME} SHARED ${PREP_SRCS} )
 target_include_directories( ${MODULE_NAME} PRIVATE
 	.
 	${SHARED_INCLUDE_PATHS}
-	${CMAKE_SOURCE_DIR}
-	${CMAKE_SOURCE_DIR}/common
-	${CMAKE_SOURCE_DIR}/shared
-	${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/include
+	${SHARED_MODULE_INCLUDES}
 )
 
 #Define preprocessor symbols here.
 target_compile_definitions( ${MODULE_NAME} PRIVATE
 	${SHARED_DEFINITIONS}
+	${SHARED_MODULE_DEFS}
 )
 
 #Add library dependencies here.

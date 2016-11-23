@@ -18,6 +18,7 @@ set( MODULE_LINK_FLAGS "/DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
 #Add module sources here, or using add_subdirectory.
 add_sources(
 	${SHARED_SOURCES}
+	${SHARED_MODULE_SOURCES}
 	ASHLSQL.h
 	ASHLSQL.cpp
 	CASSQLModule.h
@@ -45,10 +46,7 @@ add_library( ${MODULE_NAME} SHARED ${PREP_SRCS} )
 target_include_directories( ${MODULE_NAME} PRIVATE
 	.
 	${SHARED_INCLUDE_PATHS}
-	${CMAKE_SOURCE_DIR}
-	${CMAKE_SOURCE_DIR}/common
-	${CMAKE_SOURCE_DIR}/shared
-	${CMAKE_SOURCE_DIR}/external/ANGELSCRIPT/include
+	${SHARED_MODULE_INCLUDES}
 	${CMAKE_SOURCE_DIR}/external/ASSQL/include
 	${CMAKE_SOURCE_DIR}/external/CTPL/include
 	${CMAKE_SOURCE_DIR}/external/SQLite/include
@@ -58,6 +56,7 @@ target_include_directories( ${MODULE_NAME} PRIVATE
 #Define preprocessor symbols here.
 target_compile_definitions( ${MODULE_NAME} PRIVATE
 	${SHARED_DEFINITIONS}
+	${SHARED_MODULE_DEFS}
 )
 
 #Add library dependencies here.
