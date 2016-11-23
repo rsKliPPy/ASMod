@@ -15,7 +15,8 @@ public:
 
 	const char* GetName() const override final;
 
-	bool Initialize( IASEnvironment& environment,
+	bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
+					 IASEnvironment& environment,
 					 enginefuncs_t* pEngineFuncs,
 					 globalvars_t* pGlobals,
 					 meta_globals_t* pMetaGlobals,

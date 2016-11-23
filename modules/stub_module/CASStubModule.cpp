@@ -16,14 +16,15 @@ const char* CASStubModule::GetName() const
 	return "stub_module";
 }
 
-bool CASStubModule::Initialize( IASEnvironment& environment,
+bool CASStubModule::Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
+								IASEnvironment& environment,
 								enginefuncs_t* pEngineFuncs,
 								globalvars_t* pGlobals,
 								meta_globals_t* pMetaGlobals,
 								gamedll_funcs_t* pGamedllFuncs,
 								mutil_funcs_t* pMetaUtilFuncs )
 {
-	if( !BaseClass::Initialize( environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
+	if( !BaseClass::Initialize( pFactories, uiNumFactories, environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
 		return false;
 
 	memcpy( &g_engfuncs, pEngineFuncs, sizeof( g_engfuncs ) );

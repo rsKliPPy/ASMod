@@ -13,6 +13,7 @@
 #include <Angelscript/util/CASRefPtr.h>
 
 #include "ASMod/CASSimpleEnvironment.h"
+#include "ASMod/IASMod.h"
 
 #include "keyvalues/KVForward.h"
 
@@ -25,7 +26,7 @@
 class CASModModuleInfo;
 class IASLogger;
 
-class CASMod final
+class CASMod final : public IASMod
 {
 private:
 	using Modules_t = std::vector<CASModModuleInfo>;
@@ -55,15 +56,9 @@ public:
 	CASMod() = default;
 	~CASMod() = default;
 
-	/**
-	*	The loader directory. This is the base directory for this Metamod plugin, and where we'll start to look for configs & modules.
-	*/
-	const char* GetLoaderDirectory() const { return m_szLoaderDir; }
+	const char* GetLoaderDirectory() const override final { return m_szLoaderDir; }
 
-	/**
-	*	@return The game's module handle.
-	*/
-	CSysModule* GetGameModuleHandle() { return m_hGame; }
+	CSysModule* GetGameModuleHandle() override final { return m_hGame; }
 
 	bool Initialize();
 
@@ -71,25 +66,13 @@ public:
 
 	void Think();
 
-	/**
-	*	@return Whether the game factory is available.
-	*/
-	bool HasGameFactory() const { return m_pGameFactory != nullptr; }
+	bool HasGameFactory() const override final { return m_pGameFactory != nullptr; }
 
-	/**
-	*	@return Whether we're using a local environment.
-	*/
-	bool UsingLocalEnvironment() const { return m_bUsingLocalEnvironment; }
+	bool UsingLocalEnvironment() const override final { return m_bUsingLocalEnvironment; }
 
-	/**
-	*	@return The Angelscript environment.
-	*/
-	CASSimpleEnvironment& GetEnvironment() { return m_Environment; }
+	CASSimpleEnvironment& GetEnvironment() override final { return m_Environment; }
 
-	/**
-	*	Queries the game factory. If no factory was loaded, returns null and sets pReturnCode to IFACE_FAILED if it was provided.
-	*/
-	IBaseInterface* QueryGameFactory( const char* pszName, int* pReturnCode = nullptr );
+	IBaseInterface* QueryGameFactory( const char* pszName, int* pReturnCode = nullptr ) override final;
 
 private:
 	/**

@@ -27,7 +27,8 @@ public:
 	*	@param environment Environment.
 	*	@return Whether initialization succeeded.
 	*/
-	virtual bool Initialize( IASEnvironment& environment,
+	virtual bool Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
+							 IASEnvironment& environment,
 							 enginefuncs_t* pEngineFuncs,
 							 globalvars_t* pGlobals,
 							 meta_globals_t* pMetaGlobals,

@@ -15,6 +15,8 @@
 
 CASMod g_ASMod;
 
+EXPOSE_SINGLE_INTERFACE_GLOBALVAR( CASMod, IASMod, IASMOD_NAME, g_ASMod );
+
 bool CASMod::Initialize()
 {
 	LOG_MESSAGE( PLID, "Initializing AngelScript Mod Loader" );
@@ -528,7 +530,15 @@ bool CASMod::LoadModuleFromBlock( kv::Block& block )
 		return false;
 	}
 
+	//We might add in factories from other libraries in the future, so use an array here.
+	const CreateInterfaceFn factories[] = 
+	{
+		Sys_GetFactoryThis()
+	};
+
 	if( !info.GetModule()->Initialize( 
+		factories,
+		ARRAYSIZE( factories ),
 		GetEnvironment(), 
 		&g_engfuncs,
 		gpGlobals,

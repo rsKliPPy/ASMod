@@ -3,5 +3,6 @@ add_sources(
 	CASModBaseModule.cpp
 	CASSimpleEnvironment.h
 	IASEnvironment.h
+	IASMod.h
 	IASModModule.h
 )

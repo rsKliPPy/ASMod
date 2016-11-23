@@ -6,6 +6,7 @@
 #include <Angelscript/util/IASLogger.h>
 #include <Angelscript/wrapper/CASContext.h>
 #include <Angelscript/ScriptAPI/SQL/CASSQLThreadPool.h>
+#include <Angelscript/add_on/scriptstdstring.h>
 
 #include "ASMod/IASEnvironment.h"
 
@@ -13,23 +14,33 @@
 
 #include "ASHLSQL.h"
 
+#include "utility/CString.h"
+
 #include "CASSQLModule.h"
 
-EXPOSE_SINGLE_INTERFACE( CASSQLModule, IASModModule, IASMODMODULE_NAME );
+CASSQLModule g_Module;
+
+EXPOSE_SINGLE_INTERFACE_GLOBALVAR( CASSQLModule, IASModModule, IASMODMODULE_NAME, g_Module );
+
+std::string CStringToStdString( const CString* pszString )
+{
+	return pszString->CStr();
+}
 
 const char* CASSQLModule::GetName() const
 {
 	return "SQL";
 }
 
-bool CASSQLModule::Initialize( IASEnvironment& environment,
+bool CASSQLModule::Initialize( const CreateInterfaceFn* pFactories, const size_t uiNumFactories,
+							   IASEnvironment& environment,
 							   enginefuncs_t* pEngineFuncs,
 							   globalvars_t* pGlobals,
 							   meta_globals_t* pMetaGlobals,
 							   gamedll_funcs_t* pGamedllFuncs,
 							   mutil_funcs_t* pMetaUtilFuncs )
 {
-	if( !BaseClass::Initialize( environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
+	if( !BaseClass::Initialize( pFactories, uiNumFactories, environment, pEngineFuncs, pGlobals, pMetaGlobals, pGamedllFuncs, pMetaUtilFuncs ) )
 		return false;
 
 	memcpy( &g_engfuncs, pEngineFuncs, sizeof( g_engfuncs ) );
@@ -43,6 +54,11 @@ bool CASSQLModule::Initialize( IASEnvironment& environment,
 
 	auto& scriptEngine = *m_pEnvironment->GetScriptEngine();
 
+	//TODO: temporary
+	RegisterStdString( &scriptEngine, false );
+	scriptEngine.RegisterObjectMethod(
+		"string", "stdString opImplConv() const", asFUNCTION( CStringToStdString ), asCALL_CDECL_OBJFIRST );
+	//TODO: SQL api uses std::string, should be CString
 	RegisterScriptHLSQL( scriptEngine );
 
 	return true;
